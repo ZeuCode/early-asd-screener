@@ -32,7 +32,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-[url(/images/fondo.jpg)] bg-cover bg-center">
       <div className="p-6 w-full max-w-md bg-white shadow-md rounded-lg">
         <h1 className="text-xl font-bold text-center text-green-700 mb-1">
           Early ASD Screener

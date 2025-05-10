@@ -39,7 +39,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-[url(/images/fondo.jpg)] bg-cover bg-center">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Crear cuenta
