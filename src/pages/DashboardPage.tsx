@@ -1,28 +1,88 @@
+// src/pages/DashboardPage.tsx
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    const name = localStorage.getItem("user_name");
+    if (name) {
+      setUserName(name);
+    }
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user_name");
     navigate("/login");
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Panel principal</h1>
-      <button
-        onClick={() => navigate("/children/add")}
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Registrar hijo
-      </button>
-      <button
-        onClick={logout}
-        className="mt-4 ml-4 bg-red-500 text-white px-4 py-2 rounded"
-      >
-        Cerrar sesión
-      </button>
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      {/* Header */}
+      <header className="bg-green-600 text-white px-6 py-4 flex justify-between items-center shadow">
+        <h1 className="text-2xl font-bold">Early ASD Screener</h1>
+        <button
+          onClick={logout}
+          className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded transition"
+        >
+          Cerrar sesión
+        </button>
+      </header>
+
+      {/* Main content */}
+      <main className="flex-1 p-6">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+          Bienvenido{userName ? `, ${userName}` : ""} 👋
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Card: Registrar hijo */}
+          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-gray-200">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">
+              Registrar hijo/a
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Agrega a tu hijo/a para iniciar una evaluación.
+            </p>
+            <button
+              onClick={() => navigate("/children/add")}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
+            >
+              Registrar hijo/a
+            </button>
+          </div>
+
+          {/* Card: Evaluaciones (placeholder futuro) */}
+          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">
+              Ver evaluaciones
+            </h3>
+            <p className="text-gray-600 text-sm">
+              Aquí podrás ver los resultados de tus evaluaciones anteriores.
+              (Próximamente)
+            </p>
+          </div>
+
+          {/* Card: Información */}
+          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">
+              Guía rápida
+            </h3>
+            <p className="text-gray-600 text-sm">
+              Aprende a usar la plataforma, registrar hijos y realizar
+              evaluaciones Q-CHAT-10.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-200 text-center text-sm text-gray-600 py-3 mt-auto">
+        &copy; {new Date().getFullYear()} Early ASD Screener. Todos los derechos
+        reservados.
+      </footer>
     </div>
   );
 }

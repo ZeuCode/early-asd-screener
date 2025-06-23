@@ -1,4 +1,4 @@
-//src/pages/RegisterPage.tsx
+// src/pages/RegisterPage.tsx
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
@@ -13,6 +13,8 @@ export default function RegisterPage() {
     consent: false,
   });
 
+  const [error, setError] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm({
@@ -21,22 +23,41 @@ export default function RegisterPage() {
     });
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
     if (form.password !== form.confirmPassword) {
-      alert("Las contraseñas no coinciden.");
+      setError("Las contraseñas no coinciden.");
       return;
     }
 
     if (!form.consent) {
-      alert("Debes aceptar el consentimiento informado.");
+      setError("Debes aceptar el consentimiento informado.");
       return;
     }
 
-    // Simular registro
-    alert("Cuenta creada. Ahora inicia sesión.");
-    navigate("/login");
+    try {
+      const response = await fetch("http://localhost:8000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: form.nombre,
+          email: form.correo,
+          password: form.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || "Error al registrarse.");
+      }
+
+      alert("Cuenta creada exitosamente. Ahora inicia sesión.");
+      navigate("/login");
+    } catch (err: any) {
+      setError(err.message || "Error desconocido.");
+    }
   };
 
   return (
@@ -101,6 +122,8 @@ export default function RegisterPage() {
           >
             Registrarse
           </button>
+
+          {error && <p className="text-red-600 text-sm text-center">{error}</p>}
         </form>
       </div>
     </div>
