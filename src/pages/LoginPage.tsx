@@ -87,42 +87,6 @@ export default function LoginPage() {
               </span>
             </p>
           </form>
-
-          /* <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <input
-            type="email"
-            name="correo"
-            placeholder="Correo electrónico"
-            className="border p-2 rounded"
-            required
-            value={form.correo}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            className="border p-2 rounded"
-            required
-            value={form.password}
-            onChange={handleChange}
-          />
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold"
-          >
-            Entrar
-          </button>
-          <p className="text-sm text-center">
-            ¿No tienes cuenta?{" "}
-            <span
-              className="text-green-600 hover:underline cursor-pointer"
-              onClick={() => navigate("/register")}
-            >
-              Regístrate aquí
-            </span>
-          </p>
-        </form> */
         }
       </div>
     </div>
