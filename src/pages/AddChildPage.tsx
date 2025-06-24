@@ -1,8 +1,11 @@
 // src/pages/AddChildPage.tsx
+
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { isValidAgeInMonths } from "../utils/validateAge";
-import { useToast } from "../context/ToastContext";
+import { isValidAgeInMonths } from "@/utils/validateAge";
+import { useToast } from "@/context/ToastContext";
+import api from "@/api/axios";
+import type { FormEvent } from "react";
 
 export default function AddChildPage() {
   const [name, setName] = useState("");
@@ -15,7 +18,7 @@ export default function AddChildPage() {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const handleAdd = async (e: React.FormEvent) => {
+  const handleAdd = async (e: FormEvent) => {
     e.preventDefault();
 
     const date = new Date(birthDate);
@@ -29,38 +32,20 @@ export default function AddChildPage() {
       return;
     }
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      showToast("No hay sesión activa.", "error");
-      return;
-    }
-
     try {
-      const response = await fetch("http://localhost:8000/children/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          full_name: name,
-          birth_date: birthDate,
-          gender_id: gender === "male" ? 2 : 1,
-          family_asd: hasAutisticFamilyMembers === "yes",
-        }),
+      await api.post("/children/", {
+        full_name: name,
+        birth_date: birthDate,
+        gender_id: gender === "male" ? 2 : 1,
+        family_asd: hasAutisticFamilyMembers === "yes",
       });
-
-      if (!response.ok) {
-        const error = await response.json();
-        showToast(error.detail || "Error al registrar hijo", "error");
-        return;
-      }
 
       showToast("Hijo registrado exitosamente", "success");
       navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
+      const detail = error.response?.data?.detail || "Error al registrar hijo.";
+      showToast(detail, "error");
       console.error(error);
-      showToast("Error de conexión con el servidor.", "error");
     }
   };
 

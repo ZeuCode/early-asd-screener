@@ -1,15 +1,14 @@
 // src/pages/DashboardPage.tsx
+
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
+
   useEffect(() => {
-    const name = localStorage.getItem("user_name");
-    if (name) {
-      setUserName(name);
-    }
+    setUserName(localStorage.getItem("user_name") || "");
   }, []);
 
   const logout = () => {
@@ -17,6 +16,8 @@ export default function DashboardPage() {
     localStorage.removeItem("user_name");
     navigate("/login");
   };
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -33,7 +34,7 @@ export default function DashboardPage() {
 
       {/* Main content */}
       <main className="flex-1 p-6">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+        <h2 className="text-xl font-semibold mb-6 text-gray-800">
           Bienvenido{userName ? `, ${userName}` : ""} 👋
         </h2>
 
@@ -80,8 +81,7 @@ export default function DashboardPage() {
 
       {/* Footer */}
       <footer className="bg-gray-200 text-center text-sm text-gray-600 py-3 mt-auto">
-        &copy; {new Date().getFullYear()} Early ASD Screener. Todos los derechos
-        reservados.
+        &copy; {currentYear} Early ASD Screener. Todos los derechos reservados.
       </footer>
     </div>
   );

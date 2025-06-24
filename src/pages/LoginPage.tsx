@@ -1,8 +1,12 @@
-import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import api from "@/api/axios";
+import { useToast } from "@/context/ToastContext";
+import type { FormEvent, ChangeEvent } from "react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [form, setForm] = useState({
     correo: "",
@@ -13,42 +17,42 @@ export default function LoginPage() {
     document.title = "Iniciar sesión - Early ASD Screener";
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!form.correo || !form.password) {
-      alert("Completa todos los campos.");
+      showToast("Completa todos los campos.", "error");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:8000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
+      const response = await api.post(
+        "/login",
+        new URLSearchParams({
           username: form.correo,
           password: form.password,
         }),
-      });
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Credenciales inválidas");
-      }
-
-      const data = await response.json();
-      localStorage.setItem("token", data.access_token); // ✅ Guarda el token
-      localStorage.setItem("user_name", data.user.full_name);
-      navigate("/dashboard"); // ✅ Redirige al dashboard
-    } catch (error) {
+      localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem("user_name", response.data.user.full_name);
+      showToast("Inicio de sesión exitoso", "success");
+      navigate("/dashboard");
+    } catch (error: any) {
       console.error("Login error:", error);
-      alert("Usuario o contraseña incorrectos.");
+      const detail =
+        error.response?.data?.detail || "Usuario o contraseña incorrectos.";
+      showToast(detail, "error");
     }
   };
 
