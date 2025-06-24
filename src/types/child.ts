@@ -1,8 +1,13 @@
-// opcional: src/types/child.ts
-export interface Child {
+export type Gender = {
   id: number;
   name: string;
-  age_months: number;
-  gender: string;
-  has_family_with_asd: boolean;
-}
+  binary_value: number;
+};
+
+export type Child = {
+  id: number;
+  full_name: string;
+  birth_date: string;
+  family_asd: boolean;
+  gender: Gender;
+};

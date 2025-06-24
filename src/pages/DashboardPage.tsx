@@ -39,13 +39,13 @@ export default function DashboardPage() {
         </h2>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Card: Registrar hijo */}
+          {/* Registrar hijo */}
           <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-gray-200">
             <h3 className="text-lg font-bold text-gray-700 mb-2">
               Registrar hijo/a
             </h3>
             <p className="text-gray-600 text-sm mb-4">
-              Agrega a tu hijo/a para iniciar una evaluación.
+              Agrega a tu hijo o hija para comenzar una evaluación.
             </p>
             <button
               onClick={() => navigate("/children/add")}
@@ -55,26 +55,53 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* Card: Evaluaciones (placeholder futuro) */}
-          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+          {/* Ver hijos y evaluaciones */}
+          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-gray-200">
             <h3 className="text-lg font-bold text-gray-700 mb-2">
-              Ver evaluaciones
+              Hijos y evaluaciones
             </h3>
-            <p className="text-gray-600 text-sm">
-              Aquí podrás ver los resultados de tus evaluaciones anteriores.
-              (Próximamente)
+            <p className="text-gray-600 text-sm mb-4">
+              Visualiza tus hijos registrados y su historial de evaluaciones.
             </p>
+            <button
+              onClick={() => navigate("/children")}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm"
+            >
+              Ver hijos
+            </button>
           </div>
 
-          {/* Card: Información */}
-          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+          {/* Nueva evaluación */}
+          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-gray-200">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">
+              Iniciar evaluación
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Comienza una nueva evaluación Q-CHAT-10 para uno de tus hijos.
+            </p>
+            <button
+              onClick={() => navigate("/evaluation/start")}
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
+            >
+              Iniciar
+            </button>
+          </div>
+
+          {/* Guía rápida */}
+          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-gray-200">
             <h3 className="text-lg font-bold text-gray-700 mb-2">
               Guía rápida
             </h3>
-            <p className="text-gray-600 text-sm">
-              Aprende a usar la plataforma, registrar hijos y realizar
-              evaluaciones Q-CHAT-10.
+            <p className="text-gray-600 text-sm mb-4">
+              Aprende cómo registrar hijos y realizar evaluaciones
+              correctamente.
             </p>
+            <button
+              onClick={() => navigate("/guide")}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded text-sm"
+            >
+              Ver guía
+            </button>
           </div>
         </div>
       </main>
