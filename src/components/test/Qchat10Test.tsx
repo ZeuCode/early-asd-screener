@@ -1,23 +1,14 @@
-// src\components\test\Qchat10Test.tsx
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { LocationState } from "@/types/navigation";
-
-type Option = {
-  id: number;
-  question_id: number;
-  value: number;
-  text: string;
-};
-
-type Question = {
-  id: number;
-  position: number;
-  text: string;
-  options: Option[];
-};
+import QuestionCard from "./QuestionCard";
+import type { Question } from "@/types/question";
+import ReviewAnswers from "./ReviewAnswers";
+import EvaluationResult from "./EvaluationResult";
+import { updateAnswerList } from "@/utils/qchat";
+import type { Answer } from "@/types/qchat";
 
 export default function Qchat10Test() {
   const { childId } = useParams();
@@ -27,15 +18,17 @@ export default function Qchat10Test() {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<
-    { question_id: number; selected_value: number }[]
-  >([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState<{
     score: number;
     ml_result: number;
     ml_probability: number;
   } | null>(null);
+
+  const [isReviewing, setIsReviewing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [reviewScroll, setReviewScroll] = useState(0); // nuevo estado para scroll
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -52,12 +45,25 @@ export default function Qchat10Test() {
 
   const handleAnswer = (value: number) => {
     const question = questions[currentIndex];
-    console.log(`Pregunta ${question.position}: respuesta =`, value);
-    setAnswers((prev) => [
-      ...prev,
-      { question_id: question.id, selected_value: value },
-    ]);
-    setCurrentIndex((prev) => prev + 1);
+    const updatedAnswers = updateAnswerList(answers, question.id, value);
+    setAnswers(updatedAnswers);
+
+    if (isEditing) {
+      setIsEditing(false);
+      setIsReviewing(true);
+      setTimeout(() => window.scrollTo(0, reviewScroll), 0);
+    } else if (currentIndex < questions.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    } else {
+      setIsReviewing(true);
+    }
+  };
+
+  const handleEditAnswer = (index: number) => {
+    setReviewScroll(window.scrollY);
+    setIsEditing(true);
+    setIsReviewing(false);
+    setCurrentIndex(index);
   };
 
   const handleSubmit = async () => {
@@ -66,10 +72,7 @@ export default function Qchat10Test() {
         child_id: Number(childId),
         answers,
       };
-      //eliminar luego
-      console.log("Payload enviado al backend:", payload);
       const res = await api.post("/evaluations/", payload);
-      console.log("Respuesta del backend:", res.data);
       setResult(res.data);
       showToast("Evaluación completada", "success");
     } catch (err: any) {
@@ -84,67 +87,32 @@ export default function Qchat10Test() {
   }
 
   if (result) {
-    return (
-      <div className="p-4 max-w-md mx-auto text-center">
-        <h2 className="text-xl font-bold mb-4">Resultado de la evaluación</h2>
-        <p>
-          <strong>Niño/a:</strong> {childName}
-        </p>
-        <p className="mt-2">
-          <strong>Puntaje:</strong> {result.score}
-        </p>
-        <p className="mt-2">
-          <strong>Resultado ML:</strong>{" "}
-          {result.ml_result === 1 ? "Positivo (riesgo)" : "Negativo"}
-        </p>
-        <p className="mt-2">
-          <strong>Probabilidad:</strong>{" "}
-          {(result.ml_probability * 100).toFixed(1)}%
-        </p>
+    return <EvaluationResult result={result} childName={childName} />;
+  }
 
-        <button
-          className="mt-6 bg-green-600 text-white px-6 py-2 rounded text-lg"
-          onClick={() => window.location.reload()}
-        >
-          Repetir evaluación
-        </button>
-      </div>
+  if (isReviewing) {
+    return (
+      <ReviewAnswers
+        questions={questions}
+        answers={answers}
+        onEdit={handleEditAnswer}
+        onSubmit={handleSubmit}
+      />
     );
   }
 
   if (currentIndex < questions.length) {
     const q = questions[currentIndex];
     return (
-      <div className="p-4 max-w-md mx-auto text-center">
-        <h2 className="text-xl font-semibold text-green-700 mb-4">
-          Cuestionario aplicado a: {childName}
-        </h2>
-        <p className="text-lg font-medium mb-6">{q.text}</p>
-
-        <div className="flex gap-6 justify-center">
-          {q.options.map((opt) => (
-            <button
-              key={opt.id}
-              onClick={() => handleAnswer(opt.value)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded text-lg"
-            >
-              {opt.text}
-            </button>
-          ))}
-        </div>
-      </div>
+      <QuestionCard
+        questionNumber={currentIndex + 1}
+        totalQuestions={questions.length}
+        questionText={q.text}
+        options={q.options}
+        onAnswer={handleAnswer}
+      />
     );
   }
 
-  return (
-    <div className="p-4 max-w-md mx-auto text-center">
-      <h2 className="text-xl font-bold mb-4">Cuestionario completado</h2>
-      <button
-        className="bg-green-600 text-white px-6 py-2 rounded text-lg"
-        onClick={handleSubmit}
-      >
-        Enviar evaluación
-      </button>
-    </div>
-  );
+  return null;
 }
