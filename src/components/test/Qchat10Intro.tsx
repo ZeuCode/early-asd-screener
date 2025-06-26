@@ -1,35 +1,57 @@
-// src/components/test/Qchat10Intro.tsx
+// src\components\test\Qchat10Intro.tsx
+import type { LocationState } from "@/types/navigation";
+import { useParams, useNavigate, useLocation } from "react-router";
 
-import { useNavigate } from "react-router";
-
-const Qchat10Intro = () => {
+export default function Qchat10Intro() {
+  const { childId } = useParams();
+  const { state } = useLocation() as { state?: LocationState };
   const navigate = useNavigate();
 
-  const handleStart = () => {
-    navigate("/qchat10/test"); // Asegúrate que esta ruta esté definida en tus rutas
-  };
-
   return (
-    <div className="p-6 max-w-xl mx-auto text-center">
-      <h1 className="text-2xl font-bold mb-4">Q-CHAT-10</h1>
-      <p className="mb-4">
-        Este cuestionario contiene 10 preguntas diseñadas para ayudar a
-        identificar señales tempranas del Trastorno del Espectro Autista (TEA)
-        en niños pequeños. No es un diagnóstico, sino una herramienta de
-        tamizaje (screening).
-      </p>
-      <p className="mb-6">
-        Responde con sinceridad y según el comportamiento habitual del niño/a.
-        Al finalizar, obtendrás un resultado indicativo del nivel de riesgo.
-      </p>
+    <div className="p-6 max-w-2xl mx-auto text-gray-800">
+      <h1 className="text-2xl font-bold mb-4 text-green-700">
+        Evaluación Q-CHAT-10: Introducción
+      </h1>
+
+      <div className="space-y-4 text-base">
+        <p>
+          El <strong>Q-CHAT-10</strong> es un cuestionario breve compuesto por
+          10 preguntas que permite detectar posibles señales tempranas del
+          Trastorno del Espectro Autista (TEA) en niños pequeños.
+        </p>
+
+        <p>
+          Esta evaluación está dirigida a{" "}
+          <strong>padres o cuidadores de niños entre 12 y 36 meses</strong>.
+        </p>
+
+        <p>
+          <strong>Duración estimada:</strong> 3 a 5 minutos.
+        </p>
+
+        <p>
+          Responde cada pregunta de forma sincera, basándote en el
+          comportamiento habitual de tu hijo/a. No hay respuestas correctas o
+          incorrectas.
+        </p>
+
+        <p className="text-red-600 font-medium">
+          ⚠️ Importante: Esta evaluación no reemplaza un diagnóstico clínico. Es
+          una herramienta de tamizaje. Ante cualquier duda, consulta con un
+          especialista en desarrollo infantil.
+        </p>
+      </div>
+
       <button
-        onClick={handleStart}
-        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+        onClick={() =>
+          navigate(`/evaluation/qchat10/test/${childId}`, {
+            state,
+          })
+        }
+        className="mt-8 bg-green-600 hover:bg-green-700 text-white text-sm px-6 py-3 rounded transition"
       >
-        Comenzar cuestionario
+        Comenzar evaluación
       </button>
     </div>
   );
-};
-
-export default Qchat10Intro;
+}

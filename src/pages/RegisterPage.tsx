@@ -1,9 +1,13 @@
-// src/pages/RegisterPage.tsx
+// src\pages\RegisterPage.tsx
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import api from "@/api/axios";
+import { useToast } from "@/context/ToastContext";
+import type { FormEvent, ChangeEvent } from "react";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [form, setForm] = useState({
     nombre: "",
@@ -13,55 +17,46 @@ export default function RegisterPage() {
     consent: false,
   });
 
-  const [error, setError] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setForm({
-      ...form,
+    setForm((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
-    setError("");
 
     if (form.password !== form.confirmPassword) {
-      setError("Las contraseñas no coinciden.");
+      showToast("Las contraseñas no coinciden.", "error");
       return;
     }
 
     if (!form.consent) {
-      setError("Debes aceptar el consentimiento informado.");
+      showToast("Debes aceptar el consentimiento informado.", "error");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:8000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          full_name: form.nombre,
-          email: form.correo,
-          password: form.password,
-        }),
+      await api.post("/register", {
+        full_name: form.nombre,
+        email: form.correo,
+        password: form.password,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.detail || "Error al registrarse.");
-      }
-
-      alert("Cuenta creada exitosamente. Ahora inicia sesión.");
+      showToast("Cuenta creada exitosamente. Inicia sesión ahora.", "success");
       navigate("/login");
-    } catch (err: any) {
-      setError(err.message || "Error desconocido.");
+    } catch (error: any) {
+      const detail =
+        error.response?.data?.detail ||
+        "Error al registrarse. Inténtalo nuevamente.";
+      showToast(detail, "error");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-[url(/images/fondo.jpg)] bg-cover bg-center">
+    <div className="min-h-screen flex items-center justify-center bg-[url(/images/fondo.jpg)] bg-cover bg-center">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Crear cuenta
@@ -122,9 +117,16 @@ export default function RegisterPage() {
           >
             Registrarse
           </button>
-
-          {error && <p className="text-red-600 text-sm text-center">{error}</p>}
         </form>
+        <p className="text-sm text-center mt-4">
+          ¿Ya tienes cuenta?{" "}
+          <span
+            className="text-green-600 hover:underline cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            Inicia sesión
+          </span>
+        </p>
       </div>
     </div>
   );

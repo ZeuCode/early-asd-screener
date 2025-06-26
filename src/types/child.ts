@@ -1,3 +1,4 @@
+// src\types\child.ts
 export type Gender = {
   id: number;
   name: string;

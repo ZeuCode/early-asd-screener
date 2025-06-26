@@ -1,3 +1,4 @@
+// src\pages\ForgotPasswordPage.tsx
 export default function ForgotPasswordPage() {
   const handleRecover = (e: React.FormEvent) => {
     e.preventDefault();

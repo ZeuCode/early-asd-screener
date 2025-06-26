@@ -1,17 +1,29 @@
+// src\components\child\ChildCard.tsx
 import type { Child } from "@/types/child";
+import { useNavigate } from "react-router";
 import { getAgeInMonths } from "@/utils/getAgeInMonths";
 
 export default function ChildCard({ child }: { child: Child }) {
+  const navigate = useNavigate();
   const ageInMonths = getAgeInMonths(new Date(child.birth_date));
 
   return (
-    <div className="border p-4 rounded-2xl shadow-md bg-white hover:shadow-lg transition">
-      <h2 className="text-lg font-semibold text-blue-800">{child.full_name}</h2>
-      <p className="text-gray-600">Edad: {ageInMonths} meses</p>
-      <p className="text-gray-600">Género: {child.gender.name}</p>
-      <p className="text-gray-600">
-        Antecedentes TEA: {child.family_asd ? "Sí" : "No"}
-      </p>
+    <div className="bg-white shadow rounded-xl p-4 border border-gray-200 space-y-2">
+      <h3 className="text-lg font-semibold text-gray-800">{child.full_name}</h3>
+      <p className="text-sm text-gray-600">Edad: {ageInMonths} meses</p>
+
+      <div className="pt-2">
+        <button
+          onClick={() =>
+            navigate(`/evaluation/qchat10/${child.id}`, {
+              state: { childName: child.full_name },
+            })
+          }
+          className="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded transition"
+        >
+          Iniciar Evaluación
+        </button>
+      </div>
     </div>
   );
 }

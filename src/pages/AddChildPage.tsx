@@ -1,4 +1,4 @@
-// src/pages/AddChildPage.tsx
+// src\pages\AddChildPage.tsx
 
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -52,7 +52,10 @@ export default function AddChildPage() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+    // <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+    //   <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+    //     <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
+    <div className="h-full bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
           Registrar Hijo o Hija

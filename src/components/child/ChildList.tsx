@@ -1,14 +1,15 @@
-//src/components/ChildList.tsx
+// src\components\child\ChildList.tsx
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
-
 import ChildCard from "./ChildCard";
 import { useToast } from "@/context/ToastContext";
+import { useNavigate } from "react-router";
 import type { Child } from "@/types/child";
 
 export default function ChildList() {
   const [children, setChildren] = useState<Child[]>([]);
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchChildren = async () => {
@@ -24,19 +25,28 @@ export default function ChildList() {
     fetchChildren();
   }, [showToast]);
 
-  if (children.length === 0) {
-    return (
-      <p className="text-center text-gray-600 mt-4">
-        No tienes hijos registrados.
-      </p>
-    );
-  }
-
   return (
-    <div className="grid gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {children.map((child) => (
-        <ChildCard key={child.id} child={child} />
-      ))}
+    <div className="p-4 space-y-4">
+      <div className="flex justify-end">
+        <button
+          onClick={() => navigate("/children/add")}
+          className="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded transition"
+        >
+          + Registrar nuevo hijo
+        </button>
+      </div>
+
+      {children.length === 0 ? (
+        <p className="text-center text-gray-600 mt-4">
+          No tienes hijos registrados.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {children.map((child) => (
+            <ChildCard key={child.id} child={child} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
