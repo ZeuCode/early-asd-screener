@@ -1,3 +1,4 @@
+// src\components\test\Qchat10Test.tsx
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import api from "@/api/axios";

@@ -3,13 +3,11 @@ import { useParams, useNavigate, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import type { LocationState } from "@/types/navigation";
 import api from "@/api/axios";
-import { useToast } from "@/context/ToastContext";
 
 export default function Qchat10Intro() {
   const { childId } = useParams();
   const { state } = useLocation() as { state?: LocationState };
   const navigate = useNavigate();
-  const { showToast } = useToast();
 
   const [eligible, setEligible] = useState<boolean | null>(null); // null = cargando
   const [errorMessage, setErrorMessage] = useState("");
