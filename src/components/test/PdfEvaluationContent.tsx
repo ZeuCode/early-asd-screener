@@ -6,7 +6,6 @@ import {
   getRiskDescription,
 } from "@/utils/riskLevel";
 import type { RiskLevel } from "@/utils/riskLevel";
-import RiskBadge from "../ui/RiskBadge";
 
 type Props = {
   result: {

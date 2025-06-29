@@ -1,5 +1,3 @@
-// src\pages\AddChildPage.tsx
-
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { isValidAgeInMonths } from "@/utils/validateAge";
@@ -52,42 +50,63 @@ export default function AddChildPage() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    // <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-    //   <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-    //     <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
     <div className="h-full bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
           Registrar Hijo o Hija
         </h1>
+
         <form onSubmit={handleAdd} className="flex flex-col gap-5">
-          <input
-            type="text"
-            placeholder="Nombre completo"
-            className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          {/* Campo: Nombre */}
+          <div className="flex flex-col">
+            <label className="text-sm text-gray-700 mb-1 font-medium">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              placeholder="Ej: Mateo Pérez"
+              className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-          <input
-            type="date"
-            max={today}
-            className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-          />
+          {/* Campo: Fecha de nacimiento */}
+          <div className="flex flex-col">
+            <label className="text-sm text-gray-700 mb-1 font-medium">
+              Fecha de nacimiento
+            </label>
+            <input
+              type="date"
+              max={today}
+              autoComplete="off"
+              className="appearance-none border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+            />
+            <p className="text-xs text-gray-500 italic mt-1">
+              * Solo se permiten niños entre 12 y 36 meses de edad.
+            </p>
+          </div>
 
-          <select
-            className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-          </select>
+          {/* Campo: Género */}
+          <div className="flex flex-col">
+            <label className="text-sm text-gray-700 mb-1 font-medium">
+              Género
+            </label>
+            <select
+              className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option value="male">Masculino</option>
+              <option value="female">Femenino</option>
+            </select>
+          </div>
 
+          {/* Radio: Antecedentes de autismo */}
           <div className="text-center">
             <p className="text-sm text-gray-700 mb-2 font-medium">
               ¿Tiene familiares con diagnóstico de autismo?
