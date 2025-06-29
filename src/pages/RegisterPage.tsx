@@ -4,6 +4,7 @@ import { useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { FormEvent, ChangeEvent } from "react";
+import ConsentModal from "@/components/consent/ConsentModal";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -107,8 +108,10 @@ export default function RegisterPage() {
               onChange={handleChange}
               className="mt-1 accent-green-600"
             />
-            Acepto el uso de mis datos para el propósito de esta aplicación
-            según el consentimiento informado.
+            <span>
+              Acepto el uso de mis datos para el propósito de esta aplicación
+              según el <ConsentModal />.
+            </span>
           </label>
 
           <button
