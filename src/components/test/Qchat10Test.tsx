@@ -88,7 +88,14 @@ export default function Qchat10Test() {
   }
 
   if (result) {
-    return <EvaluationResult result={result} childName={childName} />;
+    return (
+      <EvaluationResult
+        result={result}
+        childName={childName}
+        questions={questions}
+        answers={answers}
+      />
+    );
   }
 
   if (isReviewing) {
