@@ -1,5 +1,6 @@
 // src\routes\AppRouter.tsx
-
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import PublicOnlyRoute from "@/components/auth/PublicOnlyRoute";
 import { Routes, Route, Navigate } from "react-router";
 import Layout from "@/layout/Layout";
 
@@ -18,31 +19,39 @@ import Qchat10Test from "@/components/test/Qchat10Test";
 import ChildEvaluationsPage from "@/pages/ChildEvaluationsPage";
 
 const NotFoundPage = () => <div className="p-6">Página no encontrada</div>;
-
 export default function AppRouter() {
   return (
     <Routes>
-      {/* Públicas */}
+      {/* Redirección raíz */}
       <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-      {/* Privadas */}
-      <Route element={<Layout />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/children" element={<ChildrenPage />} />
-        <Route path="/children/add" element={<AddChildPage />} />
-        <Route path="/guide" element={<GuidePage />} />
-        <Route path="/evaluation/qchat10/:childId" element={<Qchat10Intro />} />
-        <Route
-          path="/evaluation/qchat10/test/:childId"
-          element={<Qchat10Test />}
-        />
-        <Route
-          path="/children/:childId/evaluations"
-          element={<ChildEvaluationsPage />}
-        />
+      {/* Páginas públicas SOLO si no hay sesión */}
+      <Route element={<PublicOnlyRoute />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      </Route>
+
+      {/* Resto de rutas privadas (ya protegidas) */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/children" element={<ChildrenPage />} />
+          <Route path="/children/add" element={<AddChildPage />} />
+          <Route path="/guide" element={<GuidePage />} />
+          <Route
+            path="/evaluation/qchat10/:childId"
+            element={<Qchat10Intro />}
+          />
+          <Route
+            path="/evaluation/qchat10/test/:childId"
+            element={<Qchat10Test />}
+          />
+          <Route
+            path="/children/:childId/evaluations"
+            element={<ChildEvaluationsPage />}
+          />
+        </Route>
       </Route>
 
       {/* 404 */}

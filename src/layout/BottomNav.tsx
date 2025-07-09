@@ -1,3 +1,4 @@
+// src\layout\BottomNav.tsx
 import NavItem from "./NavItem";
 import { Home, Users, BookOpen } from "lucide-react";
 

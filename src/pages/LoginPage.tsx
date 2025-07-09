@@ -48,7 +48,8 @@ export default function LoginPage() {
       localStorage.setItem("token", response.data.access_token);
       localStorage.setItem("user_name", response.data.user.full_name);
       showToast("Inicio de sesión exitoso", "success");
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
+      //navigate("/dashboard");
     } catch (error: any) {
       console.error("Login error:", error);
       const detail =
@@ -100,7 +101,7 @@ export default function LoginPage() {
             type="submit"
             className="bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold"
           >
-            Entrar
+            Iniciar sesión
           </button>
           <p className="text-sm text-center">
             ¿No tienes cuenta?{" "}

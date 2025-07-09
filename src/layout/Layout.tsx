@@ -1,10 +1,19 @@
 // src\layout\Layout.tsx
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
+import { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import BottomNav from "./BottomNav";
 
 export default function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login", { replace: true });
+    }
+  }, []);
 
   return (
     <div className="h-screen flex bg-gray-100">
