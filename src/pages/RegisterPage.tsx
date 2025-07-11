@@ -39,7 +39,7 @@ export default function RegisterPage() {
       return;
     }
 
-    try {
+    /* try {
       await api.post("/register", {
         full_name: form.nombre,
         email: form.correo,
@@ -53,6 +53,54 @@ export default function RegisterPage() {
         error.response?.data?.detail ||
         "Error al registrarse. Inténtalo nuevamente.";
       showToast(detail, "error");
+    } */
+
+    /*  try {
+      await api.post("/register", {
+        full_name: form.nombre,
+        email: form.correo,
+        password: form.password,
+      });
+
+      showToast("Cuenta creada exitosamente. Inicia sesión ahora.", "success");
+      navigate("/login");
+    } catch (error: any) {
+      const detail = error.response?.data?.detail;
+
+      if (Array.isArray(detail)) {
+        // Si es una lista de errores de validación
+        const messages = detail.map((d: any) => d.msg).join(" ");
+        showToast(messages, "error");
+      } else {
+        // Otro tipo de error
+        showToast(
+          detail || "Error al registrarse. Inténtalo nuevamente.",
+          "error"
+        );
+      }
+    } */
+
+    try {
+      await api.post("/register", {
+        full_name: form.nombre,
+        email: form.correo,
+        password: form.password,
+      });
+
+      showToast("Cuenta creada exitosamente. Inicia sesión ahora.", "success");
+      navigate("/login");
+    } catch (error: any) {
+      let message = "Error al registrarse. Inténtalo nuevamente.";
+
+      if (error.response?.data?.detail) {
+        const detail = error.response.data.detail;
+        if (typeof detail === "string") {
+          message = detail;
+        } else if (Array.isArray(detail) && detail[0]?.msg) {
+          message = detail[0].msg.replace(/^Value error, /, "");
+        }
+      }
+      showToast(message, "error");
     }
   };
 
@@ -90,6 +138,11 @@ export default function RegisterPage() {
             value={form.password}
             onChange={handleChange}
           />
+          <p className="text-xs text-gray-500 -mt-3 mb-1 ml-1">
+            La contraseña debe tener al menos 8 caracteres, una mayúscula y un
+            número.
+          </p>
+
           <input
             type="password"
             name="confirmPassword"

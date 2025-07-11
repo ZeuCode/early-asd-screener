@@ -24,7 +24,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const showToast = (
     message: string,
     type: ToastType = "info",
-    durationMs = 3000
+    durationMs = 5000
   ) => {
     if (toasts.length > 0 && toasts[toasts.length - 1].message === message)
       return;
