@@ -1,6 +1,6 @@
 // src\layout\BottomNav.tsx
 import NavItem from "./NavItem";
-import { Home, Users, BookOpen } from "lucide-react";
+import { Home, Users, BookOpen, User } from "lucide-react";
 
 type Props = {
   currentPath: string;
@@ -11,6 +11,7 @@ export default function BottomNav({ currentPath }: Props) {
     { label: "Inicio", icon: Home, path: "/dashboard" },
     { label: "Hijos", icon: Users, path: "/children" },
     { label: "Guía", icon: BookOpen, path: "/guide" },
+    { label: "Perfil", icon: User, path: "/profile" },
   ];
 
   return (

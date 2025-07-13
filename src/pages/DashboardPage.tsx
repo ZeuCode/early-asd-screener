@@ -1,4 +1,4 @@
-// src\pages\DashboardPage.tsx
+// src/pages/DashboardPage.tsx
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
@@ -19,19 +19,23 @@ export default function DashboardPage() {
   const { showToast } = useToast();
 
   useEffect(() => {
-    setUserName(localStorage.getItem("user_name") || "");
-
-    const fetchSummary = async () => {
+    const fetchData = async () => {
       try {
-        const res = await api.get("/dashboard/summary");
-        setSummary(res.data);
+        // Ejecutar ambas peticiones en paralelo
+        const [summaryRes, profileRes] = await Promise.all([
+          api.get("/dashboard/summary"),
+          api.get("/users/me"),
+        ]);
+
+        setSummary(summaryRes.data);
+        setUserName(profileRes.data.full_name); // ← nombre real desde backend
       } catch (err) {
         console.error(err);
         showToast("Error al cargar datos del dashboard.", "error");
       }
     };
 
-    fetchSummary();
+    fetchData();
   }, [showToast]);
 
   return (
@@ -84,7 +88,7 @@ export default function DashboardPage() {
                 Fecha:{" "}
                 {new Date(
                   summary.latest_evaluation.created_at
-                ).toLocaleDateString()}
+                ).toLocaleDateString("es-PE")}
               </p>
             </div>
           ) : (

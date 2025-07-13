@@ -1,4 +1,5 @@
-// src\pages\ForgotPasswordPage.tsx
+import { useNavigate } from "react-router";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
@@ -7,10 +8,10 @@ import type { FormEvent, ChangeEvent } from "react";
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   const handleRecover = async (e: FormEvent) => {
     e.preventDefault();
-
     try {
       await api.post("/password-recovery", { email });
       showToast(
@@ -26,8 +27,19 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[url(/images/fondo.jpg)] bg-cover bg-center">
+    <div className="min-h-screen flex items-center justify-center bg-[url(/images/fondo.jpg)] bg-cover bg-center px-4">
       <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-md">
+        {/* Botón Iniciar sesión */}
+        <div className="mb-2">
+          <button
+            onClick={() => navigate("/login")}
+            className="flex items-center text-yellow-600 hover:text-yellow-700 text-sm font-medium"
+          >
+            <ArrowLeft className="w-4 h-4 mr-1" />
+            Iniciar sesión
+          </button>
+        </div>
+
         <h1 className="text-2xl font-bold text-center mb-4 text-yellow-600">
           Recuperar contraseña
         </h1>

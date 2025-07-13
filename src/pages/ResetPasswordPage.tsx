@@ -19,12 +19,12 @@ export default function ResetPasswordPage() {
   /* useEffect(() => {
     document.title = "Restablecer contraseña - Early ASD Screener";
   }, []); */
-  const toastShownRef = useRef(false);
+  const toastShownRef = useRef(false); //agregado para evitar doble toast del token invalido
   useEffect(() => {
     document.title = "Restablecer contraseña - Early ASD Screener";
 
     if (!token && !toastShownRef.current) {
-      toastShownRef.current = true;
+      toastShownRef.current = true; //agregado para evitar doble toast del token invalido
       showToast("Token de recuperación inválido o ausente.", "error");
       navigate("/login");
     }

@@ -1,4 +1,3 @@
-// src\pages\RegisterPage.tsx
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import api from "@/api/axios";
@@ -39,47 +38,6 @@ export default function RegisterPage() {
       return;
     }
 
-    /* try {
-      await api.post("/register", {
-        full_name: form.nombre,
-        email: form.correo,
-        password: form.password,
-      });
-
-      showToast("Cuenta creada exitosamente. Inicia sesión ahora.", "success");
-      navigate("/login");
-    } catch (error: any) {
-      const detail =
-        error.response?.data?.detail ||
-        "Error al registrarse. Inténtalo nuevamente.";
-      showToast(detail, "error");
-    } */
-
-    /*  try {
-      await api.post("/register", {
-        full_name: form.nombre,
-        email: form.correo,
-        password: form.password,
-      });
-
-      showToast("Cuenta creada exitosamente. Inicia sesión ahora.", "success");
-      navigate("/login");
-    } catch (error: any) {
-      const detail = error.response?.data?.detail;
-
-      if (Array.isArray(detail)) {
-        // Si es una lista de errores de validación
-        const messages = detail.map((d: any) => d.msg).join(" ");
-        showToast(messages, "error");
-      } else {
-        // Otro tipo de error
-        showToast(
-          detail || "Error al registrarse. Inténtalo nuevamente.",
-          "error"
-        );
-      }
-    } */
-
     try {
       await api.post("/register", {
         full_name: form.nombre,
@@ -105,7 +63,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[url(/images/fondo.jpg)] bg-cover bg-center">
+    <div className="min-h-screen flex items-center justify-center bg-[url(/images/fondo.jpg)] bg-cover bg-center px-4">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Crear cuenta
@@ -142,7 +100,6 @@ export default function RegisterPage() {
             La contraseña debe tener al menos 8 caracteres, una mayúscula y un
             número.
           </p>
-
           <input
             type="password"
             name="confirmPassword"
@@ -169,11 +126,19 @@ export default function RegisterPage() {
 
           <button
             type="submit"
-            className="bg-green-600 hover:bg-green-700 transition-all duration-200 text-white py-3 rounded-lg font-medium text-lg"
+            disabled={!form.consent}
+            className={`py-3 rounded-lg font-medium text-lg transition-all duration-200
+              ${
+                form.consent
+                  ? "bg-green-600 hover:bg-green-700 text-white"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              }
+            `}
           >
             Registrarse
           </button>
         </form>
+
         <p className="text-sm text-center mt-4">
           ¿Ya tienes cuenta?{" "}
           <span
