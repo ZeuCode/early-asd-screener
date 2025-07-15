@@ -1,7 +1,6 @@
-// src\pages\AddChildPage.tsx
+// src/pages/AddChildPage.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { isValidAgeInMonths } from "@/utils/validateAge";
 import { useToast } from "@/context/ToastContext";
 import api from "@/api/axios";
 import type { FormEvent } from "react";
@@ -19,12 +18,6 @@ export default function AddChildPage() {
 
   const handleAdd = async (e: FormEvent) => {
     e.preventDefault();
-
-    const date = new Date(birthDate);
-    if (!isValidAgeInMonths(date)) {
-      showToast("Edad no válida. Debe tener entre 12 y 36 meses.", "error");
-      return;
-    }
 
     if (!hasAutisticFamilyMembers) {
       showToast("Por favor indica si hay familiares con autismo.", "error");
@@ -58,7 +51,7 @@ export default function AddChildPage() {
         </h1>
 
         <form onSubmit={handleAdd} className="flex flex-col gap-5">
-          {/* Campo: Nombre */}
+          {/* Nombre */}
           <div className="flex flex-col">
             <label className="text-sm text-gray-700 mb-1 font-medium">
               Nombre completo
@@ -73,7 +66,7 @@ export default function AddChildPage() {
             />
           </div>
 
-          {/* Campo: Fecha de nacimiento */}
+          {/* Fecha de nacimiento */}
           <div className="flex flex-col">
             <label className="text-sm text-gray-700 mb-1 font-medium">
               Fecha de nacimiento
@@ -88,11 +81,12 @@ export default function AddChildPage() {
               onChange={(e) => setBirthDate(e.target.value)}
             />
             <p className="text-xs text-gray-500 italic mt-1">
-              * Solo se permiten niños entre 12 y 36 meses de edad.
+              * Solo se permiten niños entre 12 y 36 meses de edad (validado
+              automáticamente).
             </p>
           </div>
 
-          {/* Campo: Género */}
+          {/* Género */}
           <div className="flex flex-col">
             <label className="text-sm text-gray-700 mb-1 font-medium">
               Género
@@ -107,7 +101,7 @@ export default function AddChildPage() {
             </select>
           </div>
 
-          {/* Radio: Antecedentes de autismo */}
+          {/* Radio autismo */}
           <div className="text-center">
             <p className="text-sm text-gray-700 mb-2 font-medium">
               ¿Tiene familiares con diagnóstico de autismo?

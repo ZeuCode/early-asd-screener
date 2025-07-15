@@ -4,10 +4,10 @@ import api from "@/api/axios";
 import ChildCard from "./ChildCard";
 import { useToast } from "@/context/ToastContext";
 import { useNavigate } from "react-router";
-import type { Child } from "@/types/child";
+import type { ChildResume } from "@/types/child";
 
 export default function ChildList() {
-  const [children, setChildren] = useState<Child[]>([]);
+  const [children, setChildren] = useState<ChildResume[]>([]);
   const { showToast } = useToast();
   const navigate = useNavigate();
 
