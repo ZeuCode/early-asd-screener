@@ -1,4 +1,4 @@
 // src\types\navigation.ts
-export type LocationState = {
+export interface LocationState {
   childName: string;
-};
+}

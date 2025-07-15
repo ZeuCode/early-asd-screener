@@ -1,17 +1,8 @@
-// src/pages/UserProfilePage.tsx
+// src\pages\UserProfilePage.tsx
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
-
-interface UserProfile {
-  id: number;
-  full_name: string;
-  email: string;
-  is_active: boolean;
-  created_at: string;
-  consent_given_at: string;
-  updated_at: string;
-}
+import type { UserProfile } from "@/types/user";
 
 function formatDate(dateStr: string): string {
   return new Intl.DateTimeFormat("es-PE", {

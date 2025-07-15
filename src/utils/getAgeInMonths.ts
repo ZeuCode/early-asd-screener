@@ -1,4 +1,5 @@
 // src\utils\getAgeInMonths.ts
+/* // src\utils\getAgeInMonths.ts
 export function getAgeInMonths(dateOfBirth: Date): number {
   const now = new Date();
 
@@ -12,3 +13,4 @@ export function getAgeInMonths(dateOfBirth: Date): number {
 
   return months;
 }
+ */

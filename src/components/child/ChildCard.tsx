@@ -1,16 +1,14 @@
 // src\components\child\ChildCard.tsx
-import type { Child } from "@/types/child";
+import type { ChildResume } from "@/types/child";
 import { useNavigate } from "react-router";
-import { getAgeInMonths } from "@/utils/getAgeInMonths";
 
-export default function ChildCard({ child }: { child: Child }) {
+export default function ChildCard({ child }: { child: ChildResume }) {
   const navigate = useNavigate();
-  const ageInMonths = getAgeInMonths(new Date(child.birth_date));
 
   return (
     <div className="bg-white shadow rounded-xl p-4 border border-gray-200 space-y-2">
       <h3 className="text-lg font-semibold text-gray-800">{child.full_name}</h3>
-      <p className="text-sm text-gray-600">Edad: {ageInMonths} meses</p>
+      <p className="text-sm text-gray-600">Edad: {child.age_in_months} meses</p>
 
       <div className="pt-2 flex flex-col sm:flex-row gap-2">
         <button

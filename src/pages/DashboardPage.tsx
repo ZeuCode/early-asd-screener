@@ -1,17 +1,8 @@
-// src/pages/DashboardPage.tsx
+// src\pages\DashboardPage.tsx
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
-
-type DashboardSummary = {
-  children_count: number;
-  evaluations_count: number;
-  latest_evaluation: {
-    ml_result: number | null;
-    ml_probability: number | null;
-    created_at: string;
-  } | null;
-};
+import type { DashboardSummary } from "@/types/dashboard";
 
 export default function DashboardPage() {
   const [userName, setUserName] = useState("");

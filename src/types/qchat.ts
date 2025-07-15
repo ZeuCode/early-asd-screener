@@ -1,6 +1,6 @@
 // src\types\qchat.ts
 
-export type Answer = {
+export interface Answer {
   question_id: number;
   selected_value: number;
-};
+}
