@@ -3,16 +3,8 @@ import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { UserProfile } from "@/types/user";
-
-function formatDate(dateStr: string): string {
-  return new Intl.DateTimeFormat("es-PE", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(new Date(dateStr));
-}
+import ConfirmModal from "@/components/common/ConfirmModal";
+import { formatDate } from "@/utils/formatDate";
 
 export default function UserProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -164,30 +156,12 @@ export default function UserProfilePage() {
 
       {/* Modal de confirmación */}
       {showConfirmModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full">
-            <h3 className="text-lg font-semibold text-red-600 mb-4">
-              ¿Estás seguro?
-            </h3>
-            <p className="text-sm text-gray-700 mb-6">
-              Esta acción eliminará permanentemente tu cuenta y todos tus datos.
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setShowConfirmModal(false)}
-                className="px-4 py-2 rounded-lg border text-gray-700 hover:bg-gray-100"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleDeleteAccount}
-                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
-              >
-                Confirmar eliminación
-              </button>
-            </div>
-          </div>
-        </div>
+        <ConfirmModal
+          title="¿Estás seguro?"
+          message="Esta acción eliminará permanentemente tu cuenta y todos tus datos."
+          onCancel={() => setShowConfirmModal(false)}
+          onConfirm={handleDeleteAccount}
+        />
       )}
     </div>
   );
