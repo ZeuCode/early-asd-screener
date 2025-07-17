@@ -91,7 +91,7 @@ export default function PdfEvaluationContent({
           <div key={q.id} style={{ marginBottom: "10px" }}>
             <p>
               <strong>
-                {q.position}. {q.text}
+                {q.position}. {q.question_text}
               </strong>
               <br />
               Respuesta: {selected?.text || "Sin respuesta"}

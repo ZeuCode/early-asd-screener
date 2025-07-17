@@ -1,4 +1,5 @@
 // src\components\test\Qchat10Test.tsx
+// src/components/test/Qchat10Test.tsx
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import api from "@/api/axios";
@@ -29,7 +30,7 @@ export default function Qchat10Test() {
 
   const [isReviewing, setIsReviewing] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [reviewScroll, setReviewScroll] = useState(0); // nuevo estado para scroll
+  const [reviewScroll, setReviewScroll] = useState(0);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -83,9 +84,8 @@ export default function Qchat10Test() {
     }
   };
 
-  if (loading) {
+  if (loading)
     return <p className="text-center mt-10">Cargando preguntas...</p>;
-  }
 
   if (result) {
     return (
@@ -109,18 +109,17 @@ export default function Qchat10Test() {
     );
   }
 
-  if (currentIndex < questions.length) {
-    const q = questions[currentIndex];
-    return (
-      <QuestionCard
-        questionNumber={currentIndex + 1}
-        totalQuestions={questions.length}
-        questionText={q.text}
-        options={q.options}
-        onAnswer={handleAnswer}
-      />
-    );
-  }
+  const currentQuestion = questions[currentIndex];
 
-  return null;
+  return (
+    <QuestionCard
+      key={currentQuestion.position}
+      questionNumber={currentIndex + 1}
+      totalQuestions={questions.length}
+      questionText={currentQuestion.question_text}
+      helpText={currentQuestion.help_text}
+      options={currentQuestion.options}
+      onAnswer={handleAnswer}
+    />
+  );
 }

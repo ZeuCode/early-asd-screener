@@ -36,7 +36,9 @@ export default function ReviewAnswers({
               <div className="text-sm text-gray-500 mb-1">
                 Pregunta {q.position}
               </div>
-              <p className="text-base font-medium text-gray-800">{q.text}</p>
+              <p className="text-base font-medium text-gray-800">
+                {q.question_text}
+              </p>
               <p className="mt-2 text-blue-600 font-semibold">
                 Respuesta: {selectedOption?.text || "Sin respuesta"}
               </p>
