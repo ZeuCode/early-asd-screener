@@ -1,5 +1,4 @@
-// src\components\test\PdfEvaluationContent.tsx
-import type { Question } from "@/types/question";
+// src/components/test/PdfPastEvaluationContent.tsx
 import {
   getRiskLevel,
   getRiskMessage,
@@ -14,22 +13,23 @@ type Props = {
     ml_probability: number;
   };
   childName: string;
-  questions: Question[];
-  answers: { question_id: number; selected_value: number }[];
+  answers: {
+    question_text: string;
+    position: number;
+    answer_text: string;
+  }[];
   date: string; // ✅ nueva prop
 };
 
-export default function PdfEvaluationContent({
+export default function PdfPastEvaluationContent({
   result,
   childName,
-  questions,
   answers,
   date,
 }: Props) {
   const riskLevel: RiskLevel = getRiskLevel(result.ml_probability);
   const riskMessage = getRiskMessage(riskLevel);
   const riskDescription = getRiskDescription(riskLevel);
-
   const predictedProbability =
     result.ml_result === 1 ? result.ml_probability : 1 - result.ml_probability;
   const confidence = (predictedProbability * 100).toFixed(1);
@@ -57,7 +57,6 @@ export default function PdfEvaluationContent({
 
   return (
     <div
-      id="pdf-evaluation"
       style={{
         fontFamily: "Arial, sans-serif",
         color: "#111",
@@ -88,28 +87,21 @@ export default function PdfEvaluationContent({
           year: "numeric",
         })}
       </p>
-
       <h2 style={{ fontSize: "16px", margin: "20px 0 10px" }}>
         Respuestas al cuestionario:
       </h2>
 
-      {questions.map((q) => {
-        const answer = answers.find((a) => a.question_id === q.id);
-        const selected = q.options.find(
-          (opt) => opt.value === answer?.selected_value
-        );
-        return (
-          <div key={q.id} style={{ marginBottom: "10px" }}>
-            <p>
-              <strong>
-                {q.position}. {q.question_text}
-              </strong>
-              <br />
-              Respuesta: {selected?.text || "Sin respuesta"}
-            </p>
-          </div>
-        );
-      })}
+      {answers.map((a) => (
+        <div key={a.position} style={{ marginBottom: "10px" }}>
+          <p>
+            <strong>
+              {a.position}. {a.question_text}
+            </strong>
+            <br />
+            Respuesta: {a.answer_text}
+          </p>
+        </div>
+      ))}
 
       <h2 style={{ fontSize: "16px", marginTop: "30px", textAlign: "center" }}>
         Resultado de la evaluación:
@@ -135,7 +127,6 @@ export default function PdfEvaluationContent({
         >
           {riskLevel}
         </p>
-
         <p style={{ fontSize: "16px", fontWeight: "bold" }}>{riskMessage}</p>
         <p style={{ fontSize: "13px", marginBottom: "8px" }}>
           {riskDescription}

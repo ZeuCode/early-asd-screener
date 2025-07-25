@@ -20,7 +20,7 @@ import Qchat10Test from "@/components/test/Qchat10Test";
 import ChildEvaluationsPage from "@/pages/ChildEvaluationsPage";
 import UserProfilePage from "@/pages/UserProfilePage";
 import ChildDetailPage from "@/pages/ChildDetailPage";
-import EvaluationDetail from "@/components/test/EvaluationDetail";
+import EvaluationDetailPage from "@/pages/EvaluationDetailPage";
 
 const NotFoundPage = () => <div className="p-6">Página no encontrada</div>;
 export default function AppRouter() {
@@ -50,7 +50,11 @@ export default function AppRouter() {
             path="/evaluation/qchat10/:childId"
             element={<Qchat10Intro />}
           />
-          <Route path="/evaluations/:id" element={<EvaluationDetail />} />
+          <Route
+            path="/evaluations/:evaluationId"
+            element={<EvaluationDetailPage />}
+          />
+
           <Route
             path="/evaluation/qchat10/test/:childId"
             element={<Qchat10Test />}

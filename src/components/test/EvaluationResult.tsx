@@ -40,6 +40,7 @@ export default function EvaluationResult({
         childName={childName}
         questions={questions}
         answers={answers}
+        date={new Date().toISOString()} // ✅ Agregamos fecha actual
       />
     );
 

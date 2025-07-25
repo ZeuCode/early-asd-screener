@@ -7,3 +7,19 @@ export interface Evaluation {
   ml_probability: number | null;
   created_at: string; // ISO string que llega del backend
 }
+
+interface QuestionWithAnswer {
+  question_text: string;
+  position: number;
+  answer_text: string;
+}
+
+export interface EvaluationDetail {
+  id: number;
+  child_name: string;
+  created_at: string;
+  score: number;
+  ml_result: number;
+  ml_probability: number;
+  answers: QuestionWithAnswer[];
+}

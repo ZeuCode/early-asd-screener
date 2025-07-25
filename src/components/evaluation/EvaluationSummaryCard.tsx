@@ -48,19 +48,15 @@ export default function EvaluationSummaryCard({ evaluation }: Props) {
  */
 
 import type { Evaluation } from "@/types/evaluation";
-import { useNavigate } from "react-router";
 import { getRiskLevel, getRiskStyle } from "@/utils/riskLevel";
+import { useNavigate } from "react-router";
 
 type Props = {
   evaluation: Evaluation;
 };
+
 export default function EvaluationSummaryCard({ evaluation }: Props) {
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/evaluations/${evaluation.id}`);
-  };
-
   const riskLevel = getRiskLevel(evaluation.ml_probability ?? 0);
   const riskStyle = getRiskStyle(riskLevel);
   const predictedProbability =
@@ -80,8 +76,8 @@ export default function EvaluationSummaryCard({ evaluation }: Props) {
 
   return (
     <div
-      onClick={handleClick}
-      className={`rounded-xl border p-4 shadow-sm cursor-pointer hover:bg-gray-50 transition ${riskStyle.bg} ${riskStyle.border}`}
+      onClick={() => navigate(`/evaluations/${evaluation.id}`)}
+      className={`cursor-pointer rounded-xl border p-4 shadow-sm hover:shadow-md transition ${riskStyle.bg} ${riskStyle.border}`}
     >
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
         <div>
