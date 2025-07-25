@@ -14,14 +14,12 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import DashboardPage from "@/pages/DashboardPage";
 import ChildrenPage from "@/pages/ChildrenPage";
 import AddChildPage from "@/pages/AddChildPage";
-import GuidePage from "@/pages/GuidePage";
 import Qchat10Intro from "@/components/test/Qchat10Intro";
 import Qchat10Test from "@/components/test/Qchat10Test";
 import ChildEvaluationsPage from "@/pages/ChildEvaluationsPage";
 import UserProfilePage from "@/pages/UserProfilePage";
 import ChildDetailPage from "@/pages/ChildDetailPage";
 import EvaluationDetailPage from "@/pages/EvaluationDetailPage";
-import FaqPage from "@/pages/FaqPage";
 import HelpPage from "@/pages/HelpPage";
 
 const NotFoundPage = () => <div className="p-6">Página no encontrada</div>;
