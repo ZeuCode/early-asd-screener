@@ -73,7 +73,7 @@ export default function EvaluationResult({
 
   return (
     <div className="flex items-center justify-center h-full bg-gray-50 px-4">
-      <div className="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 text-center">
+      <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 text-center">
         <h2 className="text-3xl font-bold text-blue-900">
           Resultado de la Evaluación
         </h2>

@@ -15,6 +15,7 @@ import { FileDown, ArrowLeft } from "lucide-react";
 import html2pdf from "html2pdf.js";
 import ReactDOMServer from "react-dom/server";
 import PdfPastEvaluationContent from "@/components/test/PdfPastEvaluationContent";
+import { formatDate } from "@/utils/formatDate";
 
 export default function EvaluationDetailPage() {
   const { evaluationId } = useParams();
@@ -81,7 +82,7 @@ export default function EvaluationDetailPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-3xl mx-auto bg-white shadow rounded-xl p-6 space-y-6 ">
-        <h1 className="text-2xl font-bold text-center text-blue-900">
+        <h1 className="text-3xl font-bold text-center text-blue-900">
           Detalle de Evaluación
         </h1>
 
@@ -90,13 +91,10 @@ export default function EvaluationDetailPage() {
             <span className="font-semibold">Niño/a evaluado(a):</span>{" "}
             {data.child_name}
           </p>
+
           <p className="text-sm text-gray-500">
             <span className="font-medium">Fecha de evaluación:</span>{" "}
-            {new Date(data.created_at).toLocaleDateString("es-PE", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {formatDate(data.created_at)}
           </p>
         </div>
 
