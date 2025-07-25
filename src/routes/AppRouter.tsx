@@ -21,6 +21,8 @@ import ChildEvaluationsPage from "@/pages/ChildEvaluationsPage";
 import UserProfilePage from "@/pages/UserProfilePage";
 import ChildDetailPage from "@/pages/ChildDetailPage";
 import EvaluationDetailPage from "@/pages/EvaluationDetailPage";
+import FaqPage from "@/pages/FaqPage";
+import HelpPage from "@/pages/HelpPage";
 
 const NotFoundPage = () => <div className="p-6">Página no encontrada</div>;
 export default function AppRouter() {
@@ -40,12 +42,14 @@ export default function AppRouter() {
       {/* Resto de rutas privadas (ya protegidas) */}
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
+          {/* <Route path="/faq" element={<FaqPage />} /> */}
+          <Route path="/help" element={<HelpPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/children" element={<ChildrenPage />} />
           <Route path="/children/:id" element={<ChildDetailPage />} />
           <Route path="/children/add" element={<AddChildPage />} />
           <Route path="/profile" element={<UserProfilePage />} />
-          <Route path="/guide" element={<GuidePage />} />
+          {/* <Route path="/guide" element={<GuidePage />} /> */}
           <Route
             path="/evaluation/qchat10/:childId"
             element={<Qchat10Intro />}

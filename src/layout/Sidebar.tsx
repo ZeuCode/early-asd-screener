@@ -1,6 +1,6 @@
 // src\layout\Sidebar.tsx
 import { useNavigate, useLocation } from "react-router";
-import { Home, Users, BookOpen, LogOut, User } from "lucide-react";
+import { Home, Users, LogOut, User, HelpCircle } from "lucide-react";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -9,8 +9,14 @@ export default function Sidebar() {
   const menuItems = [
     { label: "Inicio", icon: <Home size={20} />, path: "/dashboard" },
     { label: "Hijos", icon: <Users size={20} />, path: "/children" },
-    { label: "Guía", icon: <BookOpen size={20} />, path: "/guide" },
+    // { label: "Guía", icon: <BookOpen size={20} />, path: "/guide" },
+    { label: "Ayuda", icon: <HelpCircle size={20} />, path: "/help" },
     { label: "Perfil", icon: <User size={20} />, path: "/profile" },
+    /* {
+      label: "Preguntas Frecuentes",
+      icon: <BookOpen size={20} />,
+      path: "/faq",
+    }, */
   ];
   const handleLogout = () => {
     localStorage.removeItem("token");
