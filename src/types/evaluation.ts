@@ -1,3 +1,5 @@
+import type { ChildResume } from "./child";
+
 // src\types\evaluation.ts
 export interface Evaluation {
   id: number;
@@ -16,7 +18,7 @@ interface QuestionWithAnswer {
 
 export interface EvaluationDetail {
   id: number;
-  child_name: string;
+  child: ChildResume;
   created_at: string;
   score: number;
   ml_result: number;
