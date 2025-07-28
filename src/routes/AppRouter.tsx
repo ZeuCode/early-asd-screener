@@ -21,6 +21,7 @@ import UserProfilePage from "@/pages/UserProfilePage";
 import ChildDetailPage from "@/pages/ChildDetailPage";
 import EvaluationDetailPage from "@/pages/EvaluationDetailPage";
 import HelpPage from "@/pages/HelpPage";
+import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
 
 const NotFoundPage = () => <div className="p-6">Página no encontrada</div>;
 export default function AppRouter() {
@@ -42,6 +43,7 @@ export default function AppRouter() {
         <Route element={<Layout />}>
           {/* <Route path="/faq" element={<FaqPage />} /> */}
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/children" element={<ChildrenPage />} />
           <Route path="/children/:id" element={<ChildDetailPage />} />

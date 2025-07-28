@@ -1,5 +1,5 @@
 // src\components\consent\ConsentModal.tsx
-import { Dialog } from "@headlessui/react";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useState } from "react";
 
 export default function ConsentModal() {
@@ -23,10 +23,10 @@ export default function ConsentModal() {
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl overflow-y-auto max-h-[80vh]">
-            <Dialog.Title className="text-2xl font-bold mb-4 text-green-700">
+          <DialogPanel className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl overflow-y-auto max-h-[80vh]">
+            <DialogTitle className="text-2xl font-bold mb-4 text-green-700">
               Consentimiento Informado
-            </Dialog.Title>
+            </DialogTitle>
             <div className="space-y-4 text-gray-700 text-justify text-sm">
               <p>
                 En cumplimiento de la Ley N° 29733 – Ley de Protección de Datos
@@ -85,7 +85,7 @@ export default function ConsentModal() {
                 Cerrar
               </button>
             </div>
-          </Dialog.Panel>
+          </DialogPanel>
         </div>
       </Dialog>
     </>

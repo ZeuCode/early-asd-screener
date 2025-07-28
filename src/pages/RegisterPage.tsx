@@ -109,7 +109,7 @@ export default function RegisterPage() {
             value={form.confirmPassword}
             onChange={handleChange}
           />
-
+          {/* 
           <label className="flex items-start gap-2 text-sm text-gray-600">
             <input
               type="checkbox"
@@ -121,6 +121,21 @@ export default function RegisterPage() {
             <span>
               Acepto el uso de mis datos para el propósito de esta aplicación
               según el <ConsentModal />.
+            </span>
+          </label> */}
+
+          {/* ✅ Texto mejorado legalmente */}
+          <label className="flex items-start gap-2 text-sm text-gray-600">
+            <input
+              type="checkbox"
+              name="consent"
+              checked={form.consent}
+              onChange={handleChange}
+              className="mt-1 accent-green-600"
+            />
+            <span>
+              He leído y acepto el <ConsentModal /> para el tratamiento de mis
+              datos personales según lo descrito.
             </span>
           </label>
 

@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   AlertTriangle,
 } from "lucide-react";
+import { Link } from "react-router";
 
 export default function HelpPage() {
   return (
@@ -97,6 +98,16 @@ export default function HelpPage() {
               answer="Es una aplicación digital diseñada para ayudar a padres de familia a identificar de manera rápida posibles signos tempranos de autismo en niños pequeños, brindando una orientación inicial con ayuda de tecnología predictiva."
             />
           </div>
+        </section>
+        {/* Enlace a política de privacidad */}
+        <section className="text-center text-sm text-gray-600">
+          📄{" "}
+          <Link
+            to="/privacy-policy"
+            className="underline text-blue-600 hover:text-blue-800"
+          >
+            Ver política de privacidad
+          </Link>
         </section>
       </div>
     </div>
