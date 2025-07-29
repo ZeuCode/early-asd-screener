@@ -13,6 +13,7 @@ import html2pdf from "html2pdf.js";
 import PdfEvaluationContent from "./PdfEvaluationContent";
 import type { Question } from "@/types/question";
 import ReactDOMServer from "react-dom/server";
+import { Button } from "../ui/Button";
 
 type Props = {
   result: {
@@ -98,19 +99,25 @@ export default function EvaluationResult({
         </div>
 
         <div className="flex justify-center gap-4 pt-4">
-          <button
+          <Button
             onClick={handleDownloadPDF}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg shadow"
+            variant="primary"
+            size="sm"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 shadow"
           >
-            <FileDown className="w-4 h-4" /> Descargar PDF
-          </button>
+            <FileDown className="w-4 h-4" />
+            Descargar PDF
+          </Button>
 
-          <button
+          <Button
             onClick={() => navigate("/children")}
-            className="inline-flex items-center gap-2 border border-gray-300 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-100"
+            className="inline-flex items-center gap-2"
+            size="sm"
+            variant="outline"
           >
-            <ArrowLeft className="w-4 h-4" /> Volver
-          </button>
+            <ArrowLeft className="w-4 h-4" />
+            Volver
+          </Button>
         </div>
       </div>
     </div>

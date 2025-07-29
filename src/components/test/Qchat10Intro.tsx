@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import type { LocationState } from "@/types/navigation";
 import api from "@/api/axios";
+import { Button } from "../ui/Button";
 
 export default function Qchat10Intro() {
   const { childId } = useParams();
@@ -75,21 +76,17 @@ export default function Qchat10Intro() {
         </div>
 
         <div className="flex justify-center mt-8">
-          <button
+          <Button
             onClick={() =>
               navigate(`/evaluation/qchat10/test/${childId}`, {
                 state,
               })
             }
             disabled={!eligible}
-            className={`px-6 py-3 rounded text-sm transition ${
-              eligible
-                ? "bg-green-600 hover:bg-green-700 text-white"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
+            size="lg"
           >
             Comenzar evaluación
-          </button>
+          </Button>
         </div>
       </div>
     </div>

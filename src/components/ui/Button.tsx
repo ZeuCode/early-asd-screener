@@ -32,16 +32,29 @@ const sizeClasses = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { variant = "primary", size = "md", className, children, ...props },
+    {
+      variant = "primary",
+      size = "md",
+      className,
+      disabled,
+      children,
+      ...props
+    },
     ref
   ) => {
+    const isDisabled = disabled ?? false;
+
     return (
       <button
         ref={ref}
+        disabled={isDisabled}
         className={cn(
-          "rounded font-semibold transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
+          "rounded font-semibold transition duration-200",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
           variantClasses[variant],
           sizeClasses[size],
+          // Si está deshabilitado, fuerza un estilo gris que sobreescriba el del variant
+          isDisabled && "bg-gray-300 text-gray-500 hover:bg-gray-300",
           className
         )}
         {...props}

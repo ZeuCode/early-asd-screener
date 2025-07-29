@@ -1,6 +1,7 @@
 // src\components\test\QuestionCard.tsx
 // src/components/test/QuestionCard.tsx
 import { useState } from "react";
+import { Button } from "../ui/Button";
 
 type Option = {
   id: number;
@@ -54,12 +55,14 @@ export default function QuestionCard({
       {/* Botón de ayuda y explicación */}
       {helpText && (
         <div className="mb-6">
-          <button
+          <Button
             onClick={toggleHelp}
-            className="text-sm text-blue-600 underline hover:text-blue-800"
+            variant="ghost"
+            size="sm"
+            className="text-blue-600 underline hover:text-blue-800"
           >
             {showHelp ? "Ocultar ayuda" : "¿Necesitas ayuda?"}
-          </button>
+          </Button>
           {showHelp && (
             <p className="mt-2 text-sm text-gray-600 italic max-w-md">
               {helpText}
@@ -71,13 +74,16 @@ export default function QuestionCard({
       {/* Opciones */}
       <div className="flex flex-col gap-4 w-full max-w-sm">
         {options.map((opt) => (
-          <button
+          <Button
             key={opt.id}
             onClick={() => onAnswer(opt.value)}
-            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg transition-all"
+            variant="primary"
+            size="lg"
+            className="w-full rounded-xl  bg-blue-600 hover:bg-blue-700"
+            //className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 shadow"
           >
             {opt.text}
-          </button>
+          </Button>
         ))}
       </div>
     </div>
