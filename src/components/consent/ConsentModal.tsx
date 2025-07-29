@@ -1,19 +1,17 @@
 // src\components\consent\ConsentModal.tsx
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useState } from "react";
+import LinkButton from "../ui/LinkButton";
+import { Button } from "../ui/Button";
 
 export default function ConsentModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="text-green-600 underline hover:text-green-800"
-      >
+      <LinkButton onClick={() => setIsOpen(true)}>
         consentimiento informado
-      </button>
+      </LinkButton>
 
       <Dialog
         open={isOpen}
@@ -77,13 +75,7 @@ export default function ConsentModal() {
             </div>
 
             <div className="mt-6 text-right">
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
-              >
-                Cerrar
-              </button>
+              <Button onClick={() => setIsOpen(false)}>Cerrar</Button>
             </div>
           </DialogPanel>
         </div>

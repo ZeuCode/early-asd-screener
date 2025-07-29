@@ -5,6 +5,7 @@ import ChildCard from "./ChildCard";
 import { useToast } from "@/context/ToastContext";
 import { useNavigate } from "react-router";
 import type { ChildResume } from "@/types/child";
+import { Button } from "../ui/Button";
 
 export default function ChildList() {
   const [children, setChildren] = useState<ChildResume[]>([]);
@@ -28,12 +29,13 @@ export default function ChildList() {
   return (
     <div className="p-4 space-y-4">
       <div className="flex justify-end">
-        <button
+        <Button
+          variant="primary"
+          size="sm"
           onClick={() => navigate("/children/add")}
-          className="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded transition"
         >
           + Registrar nuevo hijo
-        </button>
+        </Button>
       </div>
 
       {children.length === 0 ? (

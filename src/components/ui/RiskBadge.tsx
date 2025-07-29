@@ -1,5 +1,4 @@
 // src\components\ui\RiskBadge.tsx
-// src/components/ui/RiskBadge.tsx
 import { getRiskStyle, type RiskLevel } from "@/utils/riskLevel";
 
 type RiskBadgeProps = {
