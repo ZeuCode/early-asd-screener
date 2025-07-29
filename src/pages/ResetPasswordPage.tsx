@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
+import { Button } from "@/components/ui/Button";
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -98,12 +99,10 @@ export default function ResetPasswordPage() {
             value={form.confirmPassword}
             onChange={handleChange}
           />
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white py-3 rounded font-semibold"
-          >
+
+          <Button type="submit" variant="primary" size="lg">
             Guardar nueva contraseña
-          </button>
+          </Button>
         </form>
       </div>
     </div>

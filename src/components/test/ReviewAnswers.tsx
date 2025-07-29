@@ -1,6 +1,8 @@
 // src\components\test\ReviewAnswers.tsx
 
 import type { Question } from "@/types/question";
+import LinkButton from "../ui/LinkButton";
+import { Button } from "../ui/Button";
 
 type ReviewAnswersProps = {
   questions: Question[];
@@ -43,24 +45,18 @@ export default function ReviewAnswers({
                 Respuesta: {selectedOption?.text || "Sin respuesta"}
               </p>
 
-              <button
-                onClick={() => onEdit(index)}
-                className="mt-3 text-sm text-green-600 hover:underline"
-              >
+              <LinkButton onClick={() => onEdit(index)} className="mt-3">
                 Editar respuesta
-              </button>
+              </LinkButton>
             </div>
           );
         })}
       </div>
 
       <div className="mt-10 text-center">
-        <button
-          onClick={onSubmit}
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded text-base transition"
-        >
+        <Button onClick={onSubmit} variant="primary" size="lg">
           Enviar evaluación
-        </button>
+        </Button>
       </div>
     </div>
   );

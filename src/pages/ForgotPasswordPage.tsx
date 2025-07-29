@@ -1,9 +1,12 @@
+// src\pages\ForgotPasswordPage.tsx
 import { useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { FormEvent, ChangeEvent } from "react";
+import LinkButton from "@/components/ui/LinkButton";
+import { Button } from "@/components/ui/Button";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -31,13 +34,13 @@ export default function ForgotPasswordPage() {
       <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-md">
         {/* Botón Iniciar sesión */}
         <div className="mb-2">
-          <button
+          <LinkButton
             onClick={() => navigate("/login")}
-            className="flex items-center text-yellow-600 hover:text-yellow-700 text-sm font-medium"
+            className="text-yellow-600 hover:text-yellow-700 font-medium"
           >
-            <ArrowLeft className="w-4 h-4 mr-1" />
+            <ArrowLeft className="w-4 h-4" />
             Iniciar sesión
-          </button>
+          </LinkButton>
         </div>
 
         <h1 className="text-2xl font-bold text-center mb-4 text-yellow-600">
@@ -58,12 +61,14 @@ export default function ForgotPasswordPage() {
               setEmail(e.target.value)
             }
           />
-          <button
+
+          <Button
             type="submit"
-            className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded font-semibold transition-all"
+            size="md"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white"
           >
             Enviar enlace de recuperación
-          </button>
+          </Button>
         </form>
       </div>
     </div>

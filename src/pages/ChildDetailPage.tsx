@@ -1,3 +1,4 @@
+// src\pages\ChildDetailPage.tsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import api from "@/api/axios";
@@ -5,6 +6,7 @@ import { useToast } from "@/context/ToastContext";
 import type { ChildDetails } from "@/types/child";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import { formatDate } from "@/utils/formatDate";
+import { Button } from "@/components/ui/Button";
 
 export default function ChildDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -149,41 +151,47 @@ export default function ChildDetailPage() {
           <p>Última actualización: {formatDate(child.updated_at)}</p>
         </div>
 
-        <button
+        <Button
           onClick={handleSave}
           disabled={
             isSaving || newName.trim() === "" || newName === child.full_name
           }
-          className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          variant="primary"
+          size="md"
+          className="px-6 rounded-lg"
         >
           {isSaving ? "Guardando..." : "Guardar cambios"}
-        </button>
+        </Button>
       </div>
 
       {/* Acciones adicionales */}
       <div className="border-t pt-6 mt-4">
         <h2 className="text-lg font-semibold text-blue-600 mb-3">Acciones</h2>
         <div className="flex flex-col sm:flex-row gap-3">
-          <button
+          <Button
             onClick={() =>
               navigate(`/evaluation/qchat10/${child.id}`, {
                 state: { childName: child.full_name },
               })
             }
-            className="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded transition"
+            variant="primary"
+            size="sm"
           >
             Iniciar Evaluación
-          </button>
-          <button
+          </Button>
+
+          <Button
             onClick={() =>
               navigate(`/children/${child.id}/evaluations`, {
                 state: { childName: child.full_name },
               })
             }
-            className="bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm px-4 py-2 rounded border border-blue-300 transition"
+            variant="secondary"
+            size="sm"
+            className="px-4 py-2"
           >
             Ver historial
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -196,12 +204,15 @@ export default function ChildDetailPage() {
           Esta acción es irreversible. Se eliminará este perfil y todas sus
           evaluaciones.
         </p>
-        <button
+
+        <Button
           onClick={() => setShowConfirmModal(true)}
-          className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+          variant="danger"
+          size="md"
+          className="px-4 py-2 rounded-lg"
         >
           Eliminar hijo
-        </button>
+        </Button>
       </div>
 
       {/* Modal de confirmación */}

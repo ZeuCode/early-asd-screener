@@ -1,9 +1,11 @@
+// src\pages\AddChildPage.tsx
 // src/pages/AddChildPage.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useToast } from "@/context/ToastContext";
 import api from "@/api/axios";
 import type { FormEvent } from "react";
+import { Button } from "@/components/ui/Button";
 
 export default function AddChildPage() {
   const [name, setName] = useState("");
@@ -130,12 +132,9 @@ export default function AddChildPage() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white py-3 rounded font-semibold transition duration-300"
-          >
+          <Button type="submit" variant="primary" size="md">
             Registrar
-          </button>
+          </Button>
         </form>
       </div>
     </div>

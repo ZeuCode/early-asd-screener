@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { FormEvent, ChangeEvent } from "react";
+import { Button } from "@/components/ui/Button";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -97,12 +98,10 @@ export default function LoginPage() {
               ¿Olvidaste tu contraseña?
             </span>
           </div>
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold"
-          >
+
+          <Button type="submit" variant="primary" size="md">
             Iniciar sesión
-          </button>
+          </Button>
           <p className="text-sm text-center">
             ¿No tienes cuenta?{" "}
             <span

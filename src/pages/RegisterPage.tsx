@@ -1,9 +1,11 @@
+// src\pages\RegisterPage.tsx
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { FormEvent, ChangeEvent } from "react";
 import ConsentModal from "@/components/consent/ConsentModal";
+import { Button } from "@/components/ui/Button";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -139,19 +141,17 @@ export default function RegisterPage() {
             </span>
           </label>
 
-          <button
+          <Button
             type="submit"
             disabled={!form.consent}
-            className={`py-3 rounded-lg font-medium text-lg transition-all duration-200
-              ${
-                form.consent
-                  ? "bg-green-600 hover:bg-green-700 text-white"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }
-            `}
+            variant={form.consent ? "primary" : "outline"}
+            size="lg"
+            className={
+              form.consent ? "" : "text-gray-500 bg-gray-300 cursor-not-allowed"
+            }
           >
             Registrarse
-          </button>
+          </Button>
         </form>
 
         <p className="text-sm text-center mt-4">
