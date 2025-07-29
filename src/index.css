@@ -1,6 +1,8 @@
 /*src/index.css*/
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Opcional: animación fadeIn */
 @layer utilities {
   @keyframes fadeIn {
@@ -16,5 +18,17 @@
 
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out;
+  }
+}
+
+@layer base {
+  :root {
+    --bg: white;
+    --text: black;
+  }
+
+  .dark {
+    --bg: #0f172a;
+    --text: white;
   }
 }

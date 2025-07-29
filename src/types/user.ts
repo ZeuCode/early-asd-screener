@@ -8,4 +8,5 @@ export interface UserProfile {
   created_at: string;
   consent_given_at: string;
   updated_at: string;
+  theme_preference: "light" | "dark";
 }
