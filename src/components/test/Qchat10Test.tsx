@@ -1,3 +1,4 @@
+// src\components\test\Qchat10Test.tsx
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import api from "@/api/axios";
@@ -22,6 +23,7 @@ export default function Qchat10Test() {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState<{
+    id: number;
     score: number;
     ml_result: number;
     ml_probability: number;

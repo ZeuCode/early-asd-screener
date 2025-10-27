@@ -3,23 +3,25 @@ import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { DashboardSummary } from "@/types/dashboard";
-
+import { useAuth } from "@/context/AuthContext";
 export default function DashboardPage() {
-  const [userName, setUserName] = useState("");
+  //const [userName, setUserName] = useState("");
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const { showToast } = useToast();
-
+  const { user } = useAuth();
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Ejecutar ambas peticiones en paralelo
-        const [summaryRes, profileRes] = await Promise.all([
+        /*   const [summaryRes, profileRes] = await Promise.all([
           api.get("/dashboard/summary"),
           api.get("/users/me"),
         ]);
+ */
+        const [summaryRes] = await Promise.all([api.get("/dashboard/summary")]);
 
         setSummary(summaryRes.data);
-        setUserName(profileRes.data.full_name); // ← nombre real desde backend
+        //setUserName(profileRes.data.full_name); // ← nombre real desde backend
       } catch (err) {
         console.error(err);
         showToast("Error al cargar datos del dashboard.", "error");
@@ -33,7 +35,8 @@ export default function DashboardPage() {
     <div className="h-full space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          Bienvenido{userName ? `, ${userName}` : ""} 👋
+          {/* Bienvenido{userName ? `, ${userName}` : ""} 👋 */}
+          Bienvenido{user ? `, ${user.full_name}` : ""} 👋
         </h2>
         <p className="text-gray-600">
           Aquí puedes ver un resumen de tu actividad reciente.

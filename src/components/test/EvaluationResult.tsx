@@ -14,9 +14,24 @@ import PdfEvaluationContent from "./PdfEvaluationContent";
 import type { Question } from "@/types/question";
 import ReactDOMServer from "react-dom/server";
 import { Button } from "../ui/Button";
+import type { FeatureExplanation } from "@/types/feature_explanation";
+import { useEffect, useState } from "react";
+import api from "@/api/axios";
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  //LabelList,
+  Cell,
+} from "recharts";
 
 type Props = {
   result: {
+    id: number;
     score: number;
     ml_result: number;
     ml_probability: number;
@@ -33,6 +48,7 @@ export default function EvaluationResult({
   answers,
 }: Props) {
   const navigate = useNavigate();
+  const [explanation, setExplanation] = useState<FeatureExplanation[]>([]);
 
   const handleDownloadPDF = () => {
     const htmlString = ReactDOMServer.renderToStaticMarkup(
@@ -71,10 +87,44 @@ export default function EvaluationResult({
   const predictedProbability =
     result.ml_result === 1 ? result.ml_probability : 1 - result.ml_probability;
   const confidence = (predictedProbability * 100).toFixed(1);
+  // useEffect(() => {
+  //   const fetchExplanation = async () => {
+  //     try {
+  //       const res = await api.get(`/evaluations/${result.id}/explanation`);
+  //       setExplanation(res.data);
+  //     } catch (err) {
+  //       console.error("Error al obtener explicación SHAP:", err);
+  //     }
+  //   };
+
+  //   if (result?.id) {
+  //     fetchExplanation();
+  //   }
+  // }, [result?.id]);
+  useEffect(() => {
+    const fetchExplanation = async () => {
+      try {
+        const res = await api.get(`/evaluations/${result.id}/explanation`);
+        if (Array.isArray(res.data)) {
+          setExplanation(res.data);
+        } else {
+          console.warn("Respuesta inesperada del backend:", res.data);
+          setExplanation([]);
+        }
+      } catch (err) {
+        console.error("Error al obtener explicación SHAP:", err);
+        setExplanation([]); // fallback seguro
+      }
+    };
+
+    if (result?.id) {
+      fetchExplanation();
+    }
+  }, [result?.id]);
 
   return (
-    <div className="flex items-center justify-center h-full bg-gray-50 px-4">
-      <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 text-center">
+    <div className="flex items-center justify-center  bg-gray-50 px-4">
+      <div className="max-w  bg-white shadow-lg rounded-2xl p-8 space-y-6 text-center">
         <h2 className="text-3xl font-bold text-blue-900">
           Resultado de la Evaluación
         </h2>
@@ -97,6 +147,108 @@ export default function EvaluationResult({
             {confidence}%
           </p>
         </div>
+
+        {/* {explanation.length > 0 && (
+        {Array.isArray(explanation) && explanation.length > 0 && (
+          <div className="mt-8 text-left">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">
+              Impacto de cada pregunta en la predicción
+            </h3>
+            <ul className="space-y-3">
+              {explanation
+                .sort((a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value))
+                .map((item) => (
+                  <li
+                    key={item.feature}
+                    className={`p-4 rounded-lg border shadow-sm ${
+                      item.shap_value > 0
+                        ? "border-red-300 bg-red-50"
+                        : "border-green-300 bg-green-50"
+                    }`}
+                  >
+                    <p className="font-semibold">{item.question_text}</p>
+                    <p className="text-sm text-gray-600">
+                      Respuesta:{" "}
+                      <strong>{item.value === 1 ? "Sí" : "No"}</strong> —{" "}
+                      Impacto SHAP:{" "}
+                      <strong>{item.shap_value.toFixed(4)}</strong>
+                    </p>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )} */}
+        {Array.isArray(explanation) && explanation.length > 0 && (
+          <div className="mt-8 text-left">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">
+              ¿Qué preguntas influyeron más en el resultado?
+            </h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart
+                layout="vertical"
+                data={explanation
+                  .sort(
+                    (a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value)
+                  )
+                  .map((item) => ({
+                    name: item.question_text,
+                    impacto: Math.abs(item.shap_value * 100), // porcentaje
+                    color: item.shap_value > 0 ? "#dc2626" : "#16a34a", // rojo o verde
+                    respuesta: item.value === 1 ? "Sí" : "No",
+                  }))}
+                margin={{ left: 50 }}
+              >
+                <XAxis type="number" hide />
+                <YAxis
+                  dataKey="name"
+                  type="category"
+                  width={300}
+                  tick={{ fontSize: 12 }}
+                />
+                <Tooltip
+                  formatter={(value) =>
+                    typeof value === "number" ? `${value.toFixed(1)}%` : ""
+                  }
+                  labelFormatter={(label) => `Pregunta: ${label}`}
+                />
+                <Bar
+                  dataKey="impacto"
+                  isAnimationActive={false}
+                  label={{
+                    position: "right",
+                    formatter: (val: any) =>
+                      typeof val === "number" ? `${val.toFixed(1)}%` : "",
+                    fill: "#374151",
+                    fontSize: 12,
+                  }}
+                >
+                  {
+                    // Colorear cada barra individualmente
+                    explanation
+                      .sort(
+                        (a, b) =>
+                          Math.abs(b.shap_value) - Math.abs(a.shap_value)
+                      )
+                      .map((item, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={item.shap_value > 0 ? "#dc2626" : "#16a34a"}
+                        />
+                      ))
+                  }
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-sm text-gray-500 mt-2">
+              Las barras muestran qué tanto influyó cada pregunta en el
+              resultado. Las respuestas en{" "}
+              <span className="text-red-600 font-semibold">rojo</span> aumentan
+              el riesgo, las
+              <span className="text-green-600 font-semibold"> verdes</span> lo
+              reducen.
+            </p>
+          </div>
+        )}
 
         <div className="flex justify-center gap-4 pt-4">
           <Button

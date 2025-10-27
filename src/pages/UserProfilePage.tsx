@@ -8,8 +8,10 @@ import ConfirmModal from "@/components/common/ConfirmModal";
 import { formatDate } from "@/utils/formatDate";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function UserProfilePage() {
+  const { theme, setTheme } = useTheme();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [editedName, setEditedName] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -44,7 +46,38 @@ export default function UserProfilePage() {
     }
   };
 
+  /*  const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newTheme = e.target.value as "light" | "dark";
+    if (!profile) return;
+
+    try {
+      const { data: updatedProfile } = await api.put("/users/me/theme", {
+        theme: newTheme,
+      });
+      setProfile(updatedProfile);
+      setTheme(updatedProfile.theme_preference);
+      showToast("Tema actualizado", "success");
+      console.log("Profile actualizado:", updatedProfile);
+    } catch {
+      showToast("Error al cambiar tema", "error");
+    }
+  }; */
+
   const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newTheme = e.target.value as "light" | "dark";
+    if (!profile) return;
+
+    try {
+      await api.put("/users/me/theme", { theme: newTheme });
+      setProfile({ ...profile, theme_preference: newTheme });
+      setTheme(newTheme); // 👈 usa el contexto global
+      showToast("Tema actualizado", "success");
+    } catch {
+      showToast("Error al cambiar tema", "error");
+    }
+  };
+
+  /*  const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newTheme = e.target.value;
     if (!profile) return;
     try {
@@ -56,10 +89,11 @@ export default function UserProfilePage() {
       localStorage.setItem("theme", newTheme);
       document.documentElement.classList.toggle("dark", newTheme === "dark");
       showToast("Tema actualizado", "success");
+      console.log(profile);
     } catch {
       showToast("Error al cambiar tema", "error");
     }
-  };
+  }; */
 
   const handleDeleteAccount = async () => {
     try {
@@ -137,7 +171,7 @@ export default function UserProfilePage() {
           />
         </div>
 
-        {/* Preferencia de tema */}
+        {/* Preferencia de tema
         <div>
           <label className="block text-sm mb-1 items-center gap-2">
             Preferencia de tema
@@ -149,6 +183,26 @@ export default function UserProfilePage() {
           </label>
           <select
             value={profile.theme_preference}
+            onChange={handleThemeChange}
+            className="w-full border p-3 rounded-lg dark:bg-gray-800 dark:border-gray-700"
+          >
+            <option value="light">Claro</option>
+            <option value="dark">Oscuro</option>
+          </select>
+        </div> */}
+
+        {/* Preferencia de tema */}
+        <div>
+          <label className="block text-sm mb-1 items-center gap-2">
+            Preferencia de tema
+            {profile.theme_preference === "dark" ? (
+              <Moon className="w-4 h-4" />
+            ) : (
+              <Sun className="w-4 h-4" />
+            )}
+          </label>
+          <select
+            value={theme}
             onChange={handleThemeChange}
             className="w-full border p-3 rounded-lg dark:bg-gray-800 dark:border-gray-700"
           >

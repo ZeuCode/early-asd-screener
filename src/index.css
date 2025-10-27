@@ -3,8 +3,13 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Opcional: animación fadeIn */
-@layer utilities {
+@theme {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #0d0d0d;
+}
+
+/* /* Opcional: animación fadeIn */
+/* @layer utilities {
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -19,9 +24,9 @@
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out;
   }
-}
+} */
 
-@layer base {
+/* @layer base {
   :root {
     --bg: white;
     --text: black;
@@ -31,4 +36,4 @@
     --bg: #0f172a;
     --text: white;
   }
-}
+} */
