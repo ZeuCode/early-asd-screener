@@ -1,3 +1,4 @@
+// src\context\ThemeContext.tsx
 /* import { createContext, useState, useEffect, type ReactNode } from "react";
 import api from "@/api/axios";
 
@@ -153,7 +154,7 @@ export function useTheme() {
   return ctx;
 }
  */
-/* 
+
 import {
   createContext,
   useContext,
@@ -202,10 +203,9 @@ export function useTheme() {
   if (!ctx) throw new Error("useTheme must be used inside ThemeProvider");
   return ctx;
 }
- */
 
 // src/context/ThemeContext.tsx
-import React, { createContext, useContext, useEffect, useState } from "react";
+/* import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
@@ -250,3 +250,4 @@ export const useTheme = () => {
   if (!context) throw new Error("useTheme must be used within ThemeProvider");
   return context;
 };
+ */
