@@ -5,12 +5,12 @@ import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { FormEvent, ChangeEvent } from "react";
 import { Button } from "@/components/ui/Button";
-import { useAuth } from "@/context/AuthContext";
+//import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const { login } = useAuth();
+  //const { login } = useAuth();
   const [form, setForm] = useState({
     correo: "",
     password: "",
