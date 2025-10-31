@@ -16,12 +16,16 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-green-600 text-white hover:bg-green-700",
+  primary:
+    "bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600",
   secondary:
-    "bg-blue-100 text-blue-800 hover:bg-blue-200 border border-blue-300",
-  danger: "bg-red-600 text-white hover:bg-red-700",
-  outline: "border border-gray-300 text-gray-700 hover:bg-gray-100",
-  ghost: "bg-transparent text-gray-700 hover:bg-gray-100",
+    "bg-blue-100 text-blue-800 hover:bg-blue-200 border border-blue-300 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-700 dark:hover:bg-blue-800",
+  danger:
+    "bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600",
+  outline:
+    "border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800",
+  ghost:
+    "bg-transparent text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800",
 };
 
 const sizeClasses = {
@@ -54,7 +58,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           variantClasses[variant],
           sizeClasses[size],
           // Si está deshabilitado, fuerza un estilo gris que sobreescriba el del variant
-          isDisabled && "bg-gray-300 text-gray-500 hover:bg-gray-300",
+          isDisabled &&
+            "bg-gray-300 text-gray-500 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-700",
           className
         )}
         {...props}

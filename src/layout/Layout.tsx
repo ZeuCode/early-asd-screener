@@ -16,9 +16,9 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className="h-screen flex bg-gray-100">
+    <div className="h-screen flex bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-100 transition-colors duration-300">
       {/* Sidebar solo en escritorio */}
-      <aside className="hidden md:flex md:w-64 bg-white shadow-lg flex-shrink-0">
+      <aside className="hidden md:flex md:w-64 bg-white dark:bg-gray-900 shadow-lg flex-shrink-0">
         <Sidebar />
       </aside>
 

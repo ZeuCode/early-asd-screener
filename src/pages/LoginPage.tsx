@@ -5,12 +5,14 @@ import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { FormEvent, ChangeEvent } from "react";
 import { Button } from "@/components/ui/Button";
+import { useTheme } from "@/context/ThemeContext"; //
 //import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { showToast } = useToast();
   //const { login } = useAuth();
+  const { loadUserTheme } = useTheme();
   const [form, setForm] = useState({
     correo: "",
     password: "",
@@ -49,6 +51,8 @@ export default function LoginPage() {
 
       localStorage.setItem("token", response.data.access_token);
       localStorage.setItem("user_name", response.data.user.full_name);
+
+      await loadUserTheme();
 
       // centralizamos la lógica en login()
       //await login(response.data.access_token);

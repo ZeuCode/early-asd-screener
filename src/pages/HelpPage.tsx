@@ -12,9 +12,9 @@ import { Link } from "react-router";
 
 export default function HelpPage() {
   return (
-    <div className="h-full bg-gray-50 p-6 md:p-10">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-10 space-y-12">
-        <h1 className="text-3xl font-bold text-green-800 text-center flex items-center justify-center gap-2">
+    <div className="h-full bg-gray-50 dark:bg-gray-900 p-6 md:p-10">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-10 space-y-12">
+        <h1 className="text-3xl font-bold text-green-800 dark:text-green-400 text-center flex items-center justify-center gap-2">
           <HelpCircle className="w-8 h-8" /> Centro de Ayuda
         </h1>
 
@@ -22,12 +22,12 @@ export default function HelpPage() {
         <section>
           <div className="flex items-center gap-2 mb-4">
             <FileText className="text-blue-600" />
-            <h2 className="text-2xl font-semibold text-gray-800">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
               Guía rápida para completar la evaluación
             </h2>
           </div>
 
-          <ol className="list-decimal list-inside text-gray-800 space-y-4 text-base leading-relaxed bg-blue-50 border border-blue-100 rounded-xl p-6">
+          <ol className="list-decimal list-inside text-gray-800 dark:text-gray-100 space-y-4 text-base leading-relaxed bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-800 rounded-xl p-6">
             <li>
               <strong>Registra a tu hijo o hija</strong> en la sección “Hijos”.
             </li>
@@ -47,7 +47,7 @@ export default function HelpPage() {
             </li>
           </ol>
 
-          <div className="mt-6 border-t pt-4 text-sm text-gray-600 space-y-2 px-2">
+          <div className="mt-6 border-t pt-4 text-sm text-gray-600 dark:text-gray-400 dark:border-gray-700 space-y-2 px-2">
             <p>
               ⏱️ <strong>Tiempo estimado:</strong> 3 a 5 minutos.
             </p>
@@ -65,8 +65,8 @@ export default function HelpPage() {
         {/* Sección: Preguntas frecuentes */}
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <Info className="text-purple-600" />
-            <h2 className="text-2xl font-semibold text-gray-800">
+            <Info className="text-purple-600 dark:text-purple-400" />
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
               Preguntas frecuentes
             </h2>
           </div>
@@ -75,7 +75,7 @@ export default function HelpPage() {
             <FaqItem
               icon={<Brain className="text-indigo-600" />}
               question="¿Qué es el cuestionario Q-CHAT-10?"
-              answer="Es una herramienta científica de detección temprana que busca identificar posibles señales de autismo en niños pequeños, a través de 10 preguntas sencillas para padres o cuidadores."
+              answer="Es una herramienta de tamizaje para la detección temprana que busca identificar posibles señales de autismo en niños pequeños, mediante 10 preguntas sencillas para padres o cuidadores."
             />
             <FaqItem
               icon={<AlertTriangle className="text-orange-500" />}
@@ -100,11 +100,11 @@ export default function HelpPage() {
           </div>
         </section>
         {/* Enlace a política de privacidad */}
-        <section className="text-center text-sm text-gray-600">
+        <section className="text-center text-sm text-gray-600 dark:text-gray-400">
           📄{" "}
           <Link
             to="/privacy-policy"
-            className="underline text-blue-600 hover:text-blue-800"
+            className="underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
           >
             Ver política de privacidad
           </Link>
@@ -125,11 +125,15 @@ function FaqItem({
   answer: string;
 }) {
   return (
-    <div className="flex items-start gap-4 bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
+    <div className="flex items-start gap-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm">
       <div className="shrink-0 mt-1">{icon}</div>
       <div>
-        <p className="font-semibold text-gray-800">{question}</p>
-        <p className="text-gray-600 text-sm mt-1">{answer}</p>
+        <p className="font-semibold text-gray-800 dark:text-gray-100">
+          {question}
+        </p>
+        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+          {answer}
+        </p>
       </div>
     </div>
   );

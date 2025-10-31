@@ -46,54 +46,24 @@ export default function UserProfilePage() {
     }
   };
 
-  /*  const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  /*   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newTheme = e.target.value as "light" | "dark";
-    if (!profile) return;
-
-    try {
-      const { data: updatedProfile } = await api.put("/users/me/theme", {
-        theme: newTheme,
-      });
-      setProfile(updatedProfile);
-      setTheme(updatedProfile.theme_preference);
-      showToast("Tema actualizado", "success");
-      console.log("Profile actualizado:", updatedProfile);
-    } catch {
-      showToast("Error al cambiar tema", "error");
-    }
+    if (newTheme === theme) return;
+    setTheme(newTheme); // actualiza localStorage + backend instantáneamente
+    showToast("Tema cambiado", "info");
   }; */
 
   const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newTheme = e.target.value as "light" | "dark";
-    if (!profile) return;
+    if (newTheme === theme) return;
 
-    try {
-      await api.put("/users/me/theme", { theme: newTheme });
-      setProfile({ ...profile, theme_preference: newTheme });
-      setTheme(newTheme); // 👈 usa el contexto global
-      showToast("Tema actualizado", "success");
-    } catch {
-      showToast("Error al cambiar tema", "error");
+    const success = await setTheme(newTheme);
+    if (success) {
+      showToast("Tema cambiado correctamente", "success");
+    } else {
+      showToast("Error al cambiar el tema", "error");
     }
   };
-
-  /*  const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newTheme = e.target.value;
-    if (!profile) return;
-    try {
-      await api.put("/users/me/theme", { theme: newTheme });
-      setProfile({
-        ...profile,
-        theme_preference: newTheme as "light" | "dark",
-      });
-      localStorage.setItem("theme", newTheme);
-      document.documentElement.classList.toggle("dark", newTheme === "dark");
-      showToast("Tema actualizado", "success");
-      console.log(profile);
-    } catch {
-      showToast("Error al cambiar tema", "error");
-    }
-  }; */
 
   const handleDeleteAccount = async () => {
     try {
@@ -171,31 +141,11 @@ export default function UserProfilePage() {
           />
         </div>
 
-        {/* Preferencia de tema
-        <div>
-          <label className="block text-sm mb-1 items-center gap-2">
-            Preferencia de tema
-            {profile.theme_preference === "dark" ? (
-              <Moon className="w-4 h-4" />
-            ) : (
-              <Sun className="w-4 h-4" />
-            )}
-          </label>
-          <select
-            value={profile.theme_preference}
-            onChange={handleThemeChange}
-            className="w-full border p-3 rounded-lg dark:bg-gray-800 dark:border-gray-700"
-          >
-            <option value="light">Claro</option>
-            <option value="dark">Oscuro</option>
-          </select>
-        </div> */}
-
         {/* Preferencia de tema */}
         <div>
           <label className="block text-sm mb-1 items-center gap-2">
             Preferencia de tema
-            {profile.theme_preference === "dark" ? (
+            {theme === "dark" ? (
               <Moon className="w-4 h-4" />
             ) : (
               <Sun className="w-4 h-4" />
@@ -229,11 +179,11 @@ export default function UserProfilePage() {
       </div>
 
       {/* Sección peligrosa */}
-      <div className="border-t pt-6 mt-4">
-        <h2 className="text-lg font-semibold text-red-600 mb-2">
+      <div className="border-t pt-6 mt-4 dark:border-gray-700">
+        <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">
           Eliminar cuenta
         </h2>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Esta acción es irreversible. Todos tus datos serán eliminados.
         </p>
 
