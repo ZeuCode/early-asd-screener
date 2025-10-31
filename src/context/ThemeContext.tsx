@@ -41,8 +41,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const setTheme = async (t: Theme): Promise<boolean> => {
     setThemeState(t);
     localStorage.setItem("theme", t);
-    //return await updateThemeBackend(t);
-    return true;
+    return await updateThemeBackend(t);
   };
 
   const updateThemeBackend = async (newTheme: Theme): Promise<boolean> => {
