@@ -38,7 +38,7 @@ export function getRiskDescription(level: RiskLevel): string {
   }
 }
 
-export function getRiskStyle(level: RiskLevel) {
+/* export function getRiskStyle(level: RiskLevel) {
   switch (level) {
     case "Sin riesgo":
       return {
@@ -66,6 +66,77 @@ export function getRiskStyle(level: RiskLevel) {
         bg: "bg-red-100",
         text: "text-red-900",
         border: "border-red-300",
+        ring: "ring-red-700",
+      };
+  }
+}
+ */
+
+/**
+ * Retorna estilos adaptativos con soporte para modo oscuro.
+ */
+/* export function getRiskStyle(level: RiskLevel) {
+  switch (level) {
+    case "Sin riesgo":
+      return {
+        bg: "bg-green-100 dark:bg-green-950/40",
+        text: "text-green-900 dark:text-green-300",
+        border: "border-green-300 dark:border-green-800",
+        ring: "ring-green-600",
+      };
+    case "Riesgo bajo":
+      return {
+        bg: "bg-yellow-100 dark:bg-yellow-950/40",
+        text: "text-yellow-900 dark:text-yellow-300",
+        border: "border-yellow-300 dark:border-yellow-800",
+        ring: "ring-yellow-600",
+      };
+    case "Riesgo medio":
+      return {
+        bg: "bg-orange-100 dark:bg-orange-950/40",
+        text: "text-orange-900 dark:text-orange-300",
+        border: "border-orange-300 dark:border-orange-800",
+        ring: "ring-orange-600",
+      };
+    case "Riesgo alto":
+      return {
+        bg: "bg-red-100 dark:bg-red-950/40",
+        text: "text-red-900 dark:text-red-300",
+        border: "border-red-300 dark:border-red-800",
+        ring: "ring-red-700",
+      };
+  }
+}
+ */
+
+export function getRiskStyle(level: RiskLevel) {
+  switch (level) {
+    case "Sin riesgo":
+      return {
+        bg: "bg-green-100 dark:bg-green-900/40",
+        text: "text-green-900 dark:text-green-200",
+        border: "border-green-300 dark:border-green-700",
+        ring: "ring-green-600",
+      };
+    case "Riesgo bajo":
+      return {
+        bg: "bg-yellow-100 dark:bg-yellow-900/40",
+        text: "text-yellow-900 dark:text-yellow-200",
+        border: "border-yellow-300 dark:border-yellow-700",
+        ring: "ring-yellow-600",
+      };
+    case "Riesgo medio":
+      return {
+        bg: "bg-orange-100 dark:bg-orange-900/40",
+        text: "text-orange-900 dark:text-orange-200",
+        border: "border-orange-300 dark:border-orange-700",
+        ring: "ring-orange-600",
+      };
+    case "Riesgo alto":
+      return {
+        bg: "bg-red-100 dark:bg-red-900/40",
+        text: "text-red-900 dark:text-red-200",
+        border: "border-red-300 dark:border-red-700",
         ring: "ring-red-700",
       };
   }

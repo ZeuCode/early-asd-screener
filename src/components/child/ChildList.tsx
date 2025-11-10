@@ -39,13 +39,16 @@ export default function ChildList() {
       </div>
 
       {children.length === 0 ? (
-        <p className="text-center text-gray-600 mt-4">
+        <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
           No tienes hijos registrados.
         </p>
       ) : (
         <div className="flex flex-col gap-4">
-          {children.map((child) => (
+          {/*  {children.map((child) => (
             <ChildCard key={child.id} child={child} />
+          ))} */}
+          {children.map((child, index) => (
+            <ChildCard key={child.id} child={child} displayId={index + 1} />
           ))}
         </div>
       )}

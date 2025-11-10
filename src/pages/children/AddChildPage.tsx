@@ -1,5 +1,4 @@
 // src\pages\AddChildPage.tsx
-// src/pages/AddChildPage.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useToast } from "@/context/ToastContext";
@@ -46,22 +45,22 @@ export default function AddChildPage() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="h-full bg-gray-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
+    <div className="h-full bg-gray-100 dark:bg-gray-950 flex items-center justify-center px-4 transition-colors duration-300">
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 transition-colors duration-300">
+        <h1 className="text-2xl font-bold text-center text-green-700 dark:text-green-400 mb-6">
           Registrar Hijo o Hija
         </h1>
 
         <form onSubmit={handleAdd} className="flex flex-col gap-5">
           {/* Nombre */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 mb-1 font-medium">
+            <label className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
               Nombre completo
             </label>
             <input
               type="text"
               placeholder="Ej: Mateo Pérez"
-              className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="border border-gray-300 dark:border-gray-700 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-100"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -70,19 +69,19 @@ export default function AddChildPage() {
 
           {/* Fecha de nacimiento */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 mb-1 font-medium">
+            <label className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
               Fecha de nacimiento
             </label>
             <input
               type="date"
               max={today}
               autoComplete="off"
-              className="appearance-none border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="appearance-none border border-gray-300 dark:border-gray-700 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-100"
               required
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
             />
-            <p className="text-xs text-gray-500 italic mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 italic mt-1">
               * Solo se permiten niños entre 12 y 36 meses de edad (validado
               automáticamente).
             </p>
@@ -90,11 +89,11 @@ export default function AddChildPage() {
 
           {/* Género */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 mb-1 font-medium">
+            <label className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
               Género
             </label>
             <select
-              className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="border border-gray-300 dark:border-gray-700 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-100"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             >
@@ -105,11 +104,11 @@ export default function AddChildPage() {
 
           {/* Radio autismo */}
           <div className="text-center">
-            <p className="text-sm text-gray-700 mb-2 font-medium">
+            <p className="text-sm text-gray-700 dark:text-gray-300 mb-2 font-medium">
               ¿Tiene familiares con diagnóstico de autismo?
             </p>
             <div className="flex justify-center gap-6">
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <input
                   type="radio"
                   name="asdFamily"
@@ -119,7 +118,7 @@ export default function AddChildPage() {
                 />
                 Sí
               </label>
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <input
                   type="radio"
                   name="asdFamily"

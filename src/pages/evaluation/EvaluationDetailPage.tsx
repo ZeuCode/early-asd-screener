@@ -1,5 +1,5 @@
-// src\pages\EvaluationDetailPage.tsx
-
+// src\pages\evaluation\EvaluationDetailPage.tsx
+// src/pages/EvaluationDetailPage.tsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import api from "@/api/axios";
@@ -28,11 +28,10 @@ export default function EvaluationDetailPage() {
   const [data, setData] = useState<EvaluationDetail | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false); // ✅ Nueva bandera
+  const [isDeleted, setIsDeleted] = useState(false);
 
   useEffect(() => {
-    if (isDeleted) return; // ✅ Cancelar si ya fue eliminada
-
+    if (isDeleted) return;
     const controller = new AbortController();
     let isMounted = true;
 
@@ -41,16 +40,14 @@ export default function EvaluationDetailPage() {
         const res = await api.get(`/evaluations/detail/${evaluationId}`, {
           signal: controller.signal,
         });
-        if (isMounted) {
-          setData(res.data);
-        }
+        if (isMounted) setData(res.data);
       } catch (error: any) {
         if (error.name === "CanceledError" || error.code === "ERR_CANCELED")
           return;
         const status = error.response?.status;
         if (status === 404 && isMounted && !isDeleted) {
           showToast("La evaluación no existe o fue eliminada.", "error");
-          navigate("/children", { replace: true }); // o a historial si prefieres
+          navigate("/children", { replace: true });
         } else {
           showToast("No se pudo cargar la evaluación.", "error");
         }
@@ -58,14 +55,18 @@ export default function EvaluationDetailPage() {
     };
 
     fetchEvaluation();
-
     return () => {
       isMounted = false;
       controller.abort();
     };
   }, [evaluationId, showToast, navigate, isDeleted]);
 
-  if (!data) return <p className="p-6">Cargando evaluación...</p>;
+  if (!data)
+    return (
+      <p className="p-6 text-gray-700 dark:text-gray-200">
+        Cargando evaluación...
+      </p>
+    );
 
   const riskLevel: RiskLevel = getRiskLevel(data.ml_probability);
   const riskStyle = getRiskStyle(riskLevel);
@@ -113,7 +114,7 @@ export default function EvaluationDetailPage() {
     setIsDeleting(true);
     try {
       await api.delete(`/evaluations/${evaluationId}`);
-      setIsDeleted(true); // ✅ Cancelamos futuros fetch
+      setIsDeleted(true);
       showToast("Evaluación eliminada con éxito", "success");
       navigate(`/children/${data.child.id}/evaluations`, {
         replace: true,
@@ -129,51 +130,53 @@ export default function EvaluationDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-3xl mx-auto bg-white shadow rounded-xl p-6 space-y-6">
-        <h1 className="text-3xl font-bold text-center text-blue-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300 p-6">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900/20 rounded-xl p-6 space-y-6 transition-colors duration-300">
+        <h1 className="text-3xl font-bold text-center text-blue-900 dark:text-blue-400">
           Detalle de Evaluación
         </h1>
 
         <div className="text-center space-y-1">
-          <p className="text-gray-700 text-lg">
+          <p className="text-gray-800 dark:text-gray-200 text-lg">
             <span className="font-semibold">Niño/a evaluado(a):</span>{" "}
             {data.child.full_name}
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             <span className="font-medium">Fecha de evaluación:</span>{" "}
             {formatDate(data.created_at)}
           </p>
         </div>
 
         <div
-          className={`rounded-xl border-2 p-6 ${riskStyle.bg} ${riskStyle.border} space-y-4 text-center`}
+          className={`rounded-xl border-2 p-6 ${riskStyle.bg} ${riskStyle.border} space-y-4 text-center transition-colors duration-300`}
         >
           <RiskBadge level={riskLevel} />
           <p className={`text-lg font-semibold ${riskStyle.text}`}>
             {riskMessage}
           </p>
           <p className={`text-sm ${riskStyle.text}`}>{riskDescription}</p>
-          <p className="text-gray-700 text-base">
+          <p className="text-gray-800 dark:text-gray-200 text-base">
             <span className="font-semibold">Confianza del modelo:</span>{" "}
             {confidence}%
           </p>
         </div>
 
-        <h2 className="text-lg font-bold text-green-700">Respuestas dadas</h2>
+        <h2 className="text-lg font-bold text-green-700 dark:text-green-400">
+          Respuestas dadas
+        </h2>
         <div className="space-y-4">
           {data.answers.map((a) => (
             <div
               key={a.position}
-              className="border border-gray-200 rounded-lg p-4 shadow-sm"
+              className="border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 rounded-lg p-4 shadow-sm transition-colors"
             >
-              <div className="text-sm text-gray-500 mb-1">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
                 Pregunta {a.position}
               </div>
-              <p className="text-base font-medium text-gray-800">
+              <p className="text-base font-medium text-gray-800 dark:text-gray-100">
                 {a.question_text}
               </p>
-              <p className="mt-2 text-blue-600 font-semibold">
+              <p className="mt-2 text-blue-600 dark:text-blue-400 font-semibold">
                 Respuesta: {a.answer_text}
               </p>
             </div>

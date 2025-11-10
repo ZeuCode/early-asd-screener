@@ -1,4 +1,5 @@
 // src\components\test\Qchat10Test.tsx
+// src/components/test/Qchat10Test.tsx
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import api from "@/api/axios";
@@ -86,7 +87,11 @@ export default function Qchat10Test() {
   };
 
   if (loading)
-    return <p className="text-center mt-10">Cargando preguntas...</p>;
+    return (
+      <p className="text-center mt-10 text-gray-700 dark:text-gray-300 transition-colors">
+        Cargando preguntas...
+      </p>
+    );
 
   if (result) {
     return (
@@ -101,11 +106,11 @@ export default function Qchat10Test() {
 
   if (isReviewing) {
     return (
-      <div className="p-4">
-        <h2 className="text-xl font-semibold text-center mb-4 flex justify-center items-center gap-2">
-          <User className="w-5 h-5 text-blue-600" />
+      <div className="p-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+        <h2 className="text-xl font-semibold text-center mb-4 flex justify-center items-center gap-2 text-gray-900 dark:text-gray-100">
+          <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           Revisión de respuestas para:{" "}
-          <span className="text-blue-600">{childName}</span>
+          <span className="text-blue-600 dark:text-blue-400">{childName}</span>
         </h2>
         <ReviewAnswers
           questions={questions}
@@ -120,12 +125,13 @@ export default function Qchat10Test() {
   const currentQuestion = questions[currentIndex];
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold text-center mb-4 flex justify-center items-center gap-2">
-        <User className="w-5 h-5 text-blue-600" />
+    <div className="p-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+      <h2 className="text-xl font-semibold text-center mb-4 flex justify-center items-center gap-2 text-gray-900 dark:text-gray-100">
+        <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
         Respondiendo el cuestionario para:{" "}
-        <span className="text-blue-600">{childName}</span>
+        <span className="text-blue-600 dark:text-blue-400">{childName}</span>
       </h2>
+
       <QuestionCard
         key={currentQuestion.position}
         questionNumber={currentIndex + 1}

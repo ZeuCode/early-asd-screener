@@ -5,23 +5,23 @@ import { Routes, Route, Navigate } from "react-router";
 import Layout from "@/layout/Layout";
 
 // Páginas públicas
-import LoginPage from "@/pages/LoginPage";
-import RegisterPage from "@/pages/RegisterPage";
-import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
-import ResetPasswordPage from "@/pages/ResetPasswordPage";
+import LoginPage from "@/pages/auth/LoginPage";
+import RegisterPage from "@/pages/auth/RegisterPage";
+import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
 
 // Páginas privadas
-import DashboardPage from "@/pages/DashboardPage";
-import ChildrenPage from "@/pages/ChildrenPage";
-import AddChildPage from "@/pages/AddChildPage";
+import DashboardPage from "@/pages/dashboard/DashboardPage";
+import ChildrenPage from "@/pages/children/ChildrenPage";
+import AddChildPage from "@/pages/children/AddChildPage";
 import Qchat10Intro from "@/components/test/Qchat10Intro";
 import Qchat10Test from "@/components/test/Qchat10Test";
-import ChildEvaluationsPage from "@/pages/ChildEvaluationsPage";
-import UserProfilePage from "@/pages/UserProfilePage";
-import ChildDetailPage from "@/pages/ChildDetailPage";
-import EvaluationDetailPage from "@/pages/EvaluationDetailPage";
-import HelpPage from "@/pages/HelpPage";
-import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
+import ChildEvaluationsPage from "@/pages/children/ChildEvaluationsPage";
+import UserProfilePage from "@/pages/user/UserProfilePage";
+import ChildDetailPage from "@/pages/children/ChildDetailPage";
+import EvaluationDetailPage from "@/pages/evaluation/EvaluationDetailPage";
+import HelpPage from "@/pages/help/HelpPage";
+import PrivacyPolicyPage from "@/pages/policy/PrivacyPolicyPage";
 
 const NotFoundPage = () => <div className="p-6">Página no encontrada</div>;
 export default function AppRouter() {

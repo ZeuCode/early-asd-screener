@@ -48,13 +48,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`min-w-[240px] max-w-sm px-4 py-3 rounded shadow-lg text-sm font-medium animate-fadeIn text-center
+            className={`min-w-[240px] max-w-sm px-4 py-3 rounded-lg shadow-lg text-sm font-medium animate-fadeIn text-center border transition-colors duration-300
               ${
                 toast.type === "success"
-                  ? "bg-white text-blue-600 border border-blue-300"
+                  ? "bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-600"
                   : toast.type === "error"
-                  ? "bg-white text-red-600 border border-red-300"
-                  : "bg-white text-blue-600 border border-blue-300"
+                  ? "bg-white dark:bg-gray-800 text-red-600 dark:text-red-400 border-red-300 dark:border-red-600"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600"
               }`}
           >
             {toast.message}

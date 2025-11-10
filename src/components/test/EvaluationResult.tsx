@@ -87,20 +87,7 @@ export default function EvaluationResult({
   const predictedProbability =
     result.ml_result === 1 ? result.ml_probability : 1 - result.ml_probability;
   const confidence = (predictedProbability * 100).toFixed(1);
-  // useEffect(() => {
-  //   const fetchExplanation = async () => {
-  //     try {
-  //       const res = await api.get(`/evaluations/${result.id}/explanation`);
-  //       setExplanation(res.data);
-  //     } catch (err) {
-  //       console.error("Error al obtener explicación SHAP:", err);
-  //     }
-  //   };
 
-  //   if (result?.id) {
-  //     fetchExplanation();
-  //   }
-  // }, [result?.id]);
   useEffect(() => {
     const fetchExplanation = async () => {
       try {
@@ -121,110 +108,88 @@ export default function EvaluationResult({
       fetchExplanation();
     }
   }, [result?.id]);
-
   return (
-    <div className="flex items-center justify-center  bg-gray-50 px-4">
-      <div className="max-w  bg-white shadow-lg rounded-2xl p-8 space-y-6 text-center">
-        <h2 className="text-3xl font-bold text-blue-900">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-10">
+      <div className="w-full max-w-4xl bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 space-y-6 text-center transition-all">
+        <h2 className="text-3xl font-bold text-blue-900 dark:text-blue-300">
           Resultado de la Evaluación
         </h2>
 
-        <p className="text-gray-700 text-lg">
+        <p className="text-gray-700 dark:text-gray-300 text-lg">
           <span className="font-semibold">Niño/a evaluado(a):</span> {childName}
         </p>
 
         <div
-          className={`rounded-xl border-2 p-6 ${riskStyle.bg} ${riskStyle.border} space-y-4`}
+          className={`rounded-xl border-2 p-6 ${riskStyle.bg} ${riskStyle.border} space-y-4 transition-all`}
         >
           <RiskBadge level={riskLevel} />
           <p className={`text-lg font-semibold ${riskStyle.text}`}>
             {riskMessage}
           </p>
           <p className={`text-sm ${riskStyle.text}`}>{riskDescription}</p>
-
-          <p className="text-gray-700 text-base">
+          <p className="text-gray-700 dark:text-gray-300 text-base">
             <span className="font-semibold">Confianza del modelo:</span>{" "}
             {confidence}%
           </p>
         </div>
 
-        {/* {explanation.length > 0 && (
         {Array.isArray(explanation) && explanation.length > 0 && (
           <div className="mt-8 text-left">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
-              Impacto de cada pregunta en la predicción
-            </h3>
-            <ul className="space-y-3">
-              {explanation
-                .sort((a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value))
-                .map((item) => (
-                  <li
-                    key={item.feature}
-                    className={`p-4 rounded-lg border shadow-sm ${
-                      item.shap_value > 0
-                        ? "border-red-300 bg-red-50"
-                        : "border-green-300 bg-green-50"
-                    }`}
-                  >
-                    <p className="font-semibold">{item.question_text}</p>
-                    <p className="text-sm text-gray-600">
-                      Respuesta:{" "}
-                      <strong>{item.value === 1 ? "Sí" : "No"}</strong> —{" "}
-                      Impacto SHAP:{" "}
-                      <strong>{item.shap_value.toFixed(4)}</strong>
-                    </p>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        )} */}
-        {Array.isArray(explanation) && explanation.length > 0 && (
-          <div className="mt-8 text-left">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
               ¿Qué preguntas influyeron más en el resultado?
             </h3>
-            <ResponsiveContainer width="100%" height={400}>
-              <BarChart
-                layout="vertical"
-                data={explanation
-                  .sort(
-                    (a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value)
-                  )
-                  .map((item) => ({
-                    name: item.question_text,
-                    impacto: Math.abs(item.shap_value * 100), // porcentaje
-                    color: item.shap_value > 0 ? "#dc2626" : "#16a34a", // rojo o verde
-                    respuesta: item.value === 1 ? "Sí" : "No",
-                  }))}
-                margin={{ left: 50 }}
-              >
-                <XAxis type="number" hide />
-                <YAxis
-                  dataKey="name"
-                  type="category"
-                  width={300}
-                  tick={{ fontSize: 12 }}
-                />
-                <Tooltip
-                  formatter={(value) =>
-                    typeof value === "number" ? `${value.toFixed(1)}%` : ""
-                  }
-                  labelFormatter={(label) => `Pregunta: ${label}`}
-                />
-                <Bar
-                  dataKey="impacto"
-                  isAnimationActive={false}
-                  label={{
-                    position: "right",
-                    formatter: (val: any) =>
-                      typeof val === "number" ? `${val.toFixed(1)}%` : "",
-                    fill: "#374151",
-                    fontSize: 12,
-                  }}
+
+            {/* EXPLANATION: fondo único (funciona en claro y oscuro) */}
+            <div className="bg-slate-700 text-slate-100 p-4 rounded-xl">
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart
+                  layout="vertical"
+                  data={explanation
+                    .sort(
+                      (a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value)
+                    )
+                    .map((item) => ({
+                      name: item.question_text,
+                      impacto: Math.abs(item.shap_value * 100),
+                      color: item.shap_value > 0 ? "#dc2626" : "#16a34a",
+                      respuesta: item.value === 1 ? "Sí" : "No",
+                    }))}
+                  margin={{ left: 50 }}
                 >
-                  {
-                    // Colorear cada barra individualmente
-                    explanation
+                  <XAxis type="number" hide />
+                  <YAxis
+                    dataKey="name"
+                    type="category"
+                    width={300}
+                    tick={{
+                      fontSize: 12,
+                      fill: "#e6eef6", // texto claro para buena legibilidad sobre bg-slate-700
+                    }}
+                    tickLine={false}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#111827",
+                      color: "#f9fafb",
+                      borderRadius: "0.5rem",
+                    }}
+                    formatter={(value) =>
+                      typeof value === "number" ? `${value.toFixed(1)}%` : ""
+                    }
+                    labelFormatter={(label) => `Pregunta: ${label}`}
+                  />
+                  <Bar
+                    dataKey="impacto"
+                    isAnimationActive={false}
+                    label={{
+                      position: "right",
+                      formatter: (val: any) =>
+                        typeof val === "number" ? `${val.toFixed(1)}%` : "",
+                      fill: "#e6eef6", // texto claro para los labels del final de barra
+                      fontSize: 12,
+                    }}
+                  >
+                    {explanation
                       .sort(
                         (a, b) =>
                           Math.abs(b.shap_value) - Math.abs(a.shap_value)
@@ -234,18 +199,24 @@ export default function EvaluationResult({
                           key={`cell-${index}`}
                           fill={item.shap_value > 0 ? "#dc2626" : "#16a34a"}
                         />
-                      ))
-                  }
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-            <p className="text-sm text-gray-500 mt-2">
+                      ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-3">
               Las barras muestran qué tanto influyó cada pregunta en el
               resultado. Las respuestas en{" "}
-              <span className="text-red-600 font-semibold">rojo</span> aumentan
-              el riesgo, las
-              <span className="text-green-600 font-semibold"> verdes</span> lo
-              reducen.
+              <span className="text-red-600 dark:text-red-400 font-semibold">
+                rojo
+              </span>{" "}
+              aumentan el riesgo, las
+              <span className="text-green-600 dark:text-green-400 font-semibold">
+                {" "}
+                verdes
+              </span>{" "}
+              lo reducen.
             </p>
           </div>
         )}
@@ -255,7 +226,7 @@ export default function EvaluationResult({
             onClick={handleDownloadPDF}
             variant="primary"
             size="sm"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 shadow"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 text-white px-4 py-2 shadow"
           >
             <FileDown className="w-4 h-4" />
             Descargar PDF
@@ -263,7 +234,7 @@ export default function EvaluationResult({
 
           <Button
             onClick={() => navigate("/children")}
-            className="inline-flex items-center gap-2"
+            className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
             size="sm"
             variant="outline"
           >

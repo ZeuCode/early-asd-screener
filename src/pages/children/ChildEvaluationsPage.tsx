@@ -1,3 +1,4 @@
+// src\pages\children\ChildEvaluationsPage.tsx
 // src\pages\ChildEvaluationsPage.tsx
 
 import { useEffect, useState } from "react";
@@ -47,9 +48,9 @@ export default function ChildEvaluationsPage() {
   }, [childId, showToast, navigate]);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300 p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-green-700">
+        <h1 className="text-2xl font-bold text-green-700 dark:text-green-400">
           Evaluaciones de {childName}
         </h1>
 
@@ -65,7 +66,9 @@ export default function ChildEvaluationsPage() {
       </div>
 
       {evaluations.length === 0 ? (
-        <p className="text-gray-600">No hay evaluaciones registradas.</p>
+        <p className="text-gray-600 dark:text-gray-300">
+          No hay evaluaciones registradas.
+        </p>
       ) : (
         <div className="space-y-4">
           {evaluations.map((ev) => (

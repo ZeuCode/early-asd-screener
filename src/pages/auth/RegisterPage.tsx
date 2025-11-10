@@ -1,3 +1,4 @@
+// src\pages\auth\RegisterPage.tsx
 // src\pages\RegisterPage.tsx
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -111,22 +112,7 @@ export default function RegisterPage() {
             value={form.confirmPassword}
             onChange={handleChange}
           />
-          {/* 
-          <label className="flex items-start gap-2 text-sm text-gray-600">
-            <input
-              type="checkbox"
-              name="consent"
-              checked={form.consent}
-              onChange={handleChange}
-              className="mt-1 accent-green-600"
-            />
-            <span>
-              Acepto el uso de mis datos para el propósito de esta aplicación
-              según el <ConsentModal />.
-            </span>
-          </label> */}
 
-          {/* ✅ Texto mejorado legalmente */}
           <label className="flex items-start gap-2 text-sm text-gray-600">
             <input
               type="checkbox"

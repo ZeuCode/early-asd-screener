@@ -1,4 +1,5 @@
-// src\pages\ChildDetailPage.tsx
+// src\pages\children\ChildDetailPage.tsx
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import api from "@/api/axios";
@@ -81,72 +82,82 @@ export default function ChildDetailPage() {
   };
 
   if (!child) {
-    return <div className="p-4 text-center">Cargando perfil...</div>;
+    return (
+      <div className="p-4 text-center text-gray-700 dark:text-gray-300 transition-colors duration-300">
+        Cargando perfil...
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow space-y-6">
-      <h1 className="text-2xl font-bold text-green-600">Perfil del Hijo</h1>
+    <div className="max-w-xl mx-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 p-6 rounded-xl shadow space-y-6 transition-colors duration-300">
+      <h1 className="text-2xl font-bold text-green-600 dark:text-green-400">
+        Perfil del Hijo
+      </h1>
 
       {/* Formulario de edición */}
       <div className="space-y-4">
         <div>
-          <label className="block text-sm text-gray-600 mb-1">
+          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
             Nombre completo
           </label>
           <input
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600 mb-1">Edad</label>
+          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+            Edad
+          </label>
           <input
             type="text"
             value={`${child.age_in_months} meses`}
             disabled
-            className="w-full border p-3 rounded-lg bg-gray-100 text-gray-500"
+            className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600 mb-1">
+          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
             Fecha de nacimiento
           </label>
           <input
             type="text"
             value={formatDate(child.birth_date)}
             disabled
-            className="w-full border p-3 rounded-lg bg-gray-100 text-gray-500"
+            className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600 mb-1">Género</label>
+          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+            Género
+          </label>
           <input
             type="text"
             value={child.gender.name}
             disabled
-            className="w-full border p-3 rounded-lg bg-gray-100 text-gray-500"
+            className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600 mb-1">
+          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
             Antecedentes de TEA en la familia
           </label>
           <input
             type="text"
             value={child.family_asd ? "Sí" : "No"}
             disabled
-            className="w-full border p-3 rounded-lg bg-gray-100 text-gray-500"
+            className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
           />
         </div>
 
-        <div className="text-xs text-gray-500 space-y-1">
+        <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
           <p>Creado: {formatDate(child.created_at)}</p>
           <p>Última actualización: {formatDate(child.updated_at)}</p>
         </div>
@@ -165,8 +176,10 @@ export default function ChildDetailPage() {
       </div>
 
       {/* Acciones adicionales */}
-      <div className="border-t pt-6 mt-4">
-        <h2 className="text-lg font-semibold text-blue-600 mb-3">Acciones</h2>
+      <div className="border-t dark:border-gray-700 pt-6 mt-4">
+        <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
+          Acciones
+        </h2>
         <div className="flex flex-col sm:flex-row gap-3">
           <Button
             onClick={() =>
@@ -196,11 +209,11 @@ export default function ChildDetailPage() {
       </div>
 
       {/* Zona peligrosa */}
-      <div className="border-t pt-6 mt-4">
-        <h2 className="text-lg font-semibold text-red-600 mb-2">
+      <div className="border-t dark:border-gray-700 pt-6 mt-4">
+        <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">
           Eliminar hijo
         </h2>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Esta acción es irreversible. Se eliminará este perfil y todas sus
           evaluaciones.
         </p>

@@ -1,4 +1,5 @@
 // src\components\test\Qchat10Intro.tsx
+// src/components/test/Qchat10Intro.tsx
 import { useParams, useNavigate, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import type { LocationState } from "@/types/navigation";
@@ -10,7 +11,7 @@ export default function Qchat10Intro() {
   const { state } = useLocation() as { state?: LocationState };
   const navigate = useNavigate();
 
-  const [eligible, setEligible] = useState<boolean | null>(null); // null = cargando
+  const [eligible, setEligible] = useState<boolean | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -31,9 +32,9 @@ export default function Qchat10Intro() {
   }, [childId]);
 
   return (
-    <div className="h-full flex justify-center items-center px-4">
-      <div className="bg-white max-w-2xl w-full p-8 rounded-lg shadow text-gray-800">
-        <h1 className="text-2xl font-bold mb-6 text-green-700 text-center">
+    <div className="h-full flex justify-center items-center px-4 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+      <div className="bg-white dark:bg-gray-900 max-w-2xl w-full p-8 rounded-lg shadow dark:shadow-gray-900/30 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+        <h1 className="text-2xl font-bold mb-6 text-green-700 dark:text-green-400 text-center">
           Evaluación Q-CHAT-10: Introducción
         </h1>
 
@@ -59,14 +60,14 @@ export default function Qchat10Intro() {
             incorrectas.
           </p>
 
-          <p className="text-red-600 font-medium">
+          <p className="text-red-600 dark:text-red-400 font-medium">
             ⚠️ Importante: Esta evaluación no reemplaza un diagnóstico clínico.
             Es una herramienta de tamizaje. Ante cualquier duda, consulta con un
             especialista en desarrollo infantil.
           </p>
 
           {eligible === false && (
-            <div className="mt-4 p-4 bg-red-100 text-red-700 rounded border border-red-300">
+            <div className="mt-4 p-4 bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300 rounded border border-red-300 dark:border-red-700">
               <p className="font-semibold">
                 No se puede iniciar la evaluación:
               </p>
@@ -78,9 +79,7 @@ export default function Qchat10Intro() {
         <div className="flex justify-center mt-8">
           <Button
             onClick={() =>
-              navigate(`/evaluation/qchat10/test/${childId}`, {
-                state,
-              })
+              navigate(`/evaluation/qchat10/test/${childId}`, { state })
             }
             disabled={!eligible}
             size="lg"

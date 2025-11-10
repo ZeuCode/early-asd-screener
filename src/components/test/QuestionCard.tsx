@@ -1,5 +1,4 @@
 // src\components\test\QuestionCard.tsx
-// src/components/test/QuestionCard.tsx
 import { useState } from "react";
 import { Button } from "../ui/Button";
 
@@ -35,12 +34,12 @@ export default function QuestionCard({
   return (
     <div className="flex flex-col justify-center items-center h-full p-6 text-center">
       {/* Progreso textual */}
-      <div className="mb-2 text-green-700 font-semibold text-base">
+      <div className="mb-2 text-green-600 dark:text-green-400 font-semibold text-base">
         Pregunta {questionNumber} de {totalQuestions}
       </div>
 
       {/* Barra de progreso */}
-      <div className="w-full max-w-sm h-2 bg-gray-200 rounded-full mb-8">
+      <div className="w-full max-w-sm h-2 bg-gray-200 dark:bg-gray-700 rounded-full mb-8">
         <div
           className="h-full bg-green-600 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
@@ -48,7 +47,7 @@ export default function QuestionCard({
       </div>
 
       {/* Texto de la pregunta */}
-      <p className="text-xl font-semibold text-gray-800 mb-4 max-w-xl">
+      <p className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4 max-w-xl">
         {questionText}
       </p>
 
@@ -59,12 +58,12 @@ export default function QuestionCard({
             onClick={toggleHelp}
             variant="ghost"
             size="sm"
-            className="text-blue-600 underline hover:text-blue-800"
+            className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300"
           >
             {showHelp ? "Ocultar ayuda" : "¿Necesitas ayuda?"}
           </Button>
           {showHelp && (
-            <p className="mt-2 text-sm text-gray-600 italic max-w-md">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 italic max-w-md">
               {helpText}
             </p>
           )}
@@ -79,8 +78,7 @@ export default function QuestionCard({
             onClick={() => onAnswer(opt.value)}
             variant="primary"
             size="lg"
-            className="w-full rounded-xl  bg-blue-600 hover:bg-blue-700"
-            //className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 shadow"
+            className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-400"
           >
             {opt.text}
           </Button>
