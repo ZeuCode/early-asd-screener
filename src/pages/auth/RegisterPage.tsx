@@ -558,7 +558,6 @@ export default function RegisterPage() {
 
       await loadUserTheme();
 
-      // 4️⃣ Redirigir al dashboard
       showToast("¡Cuenta creada e inicio de sesión exitoso!", "success");
       navigate("/dashboard", { replace: true });
     } catch (error: any) {
