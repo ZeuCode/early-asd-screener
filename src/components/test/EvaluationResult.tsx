@@ -252,7 +252,7 @@ export default function EvaluationResult({
             experiencia con la aplicación.
           </p>
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf3yUfTi-1vCf_ETJTz3AfRhv6XnCXX_2k1MAsa2mL0qkF3ZA/viewform?usp=dialog" // 🔗 cambia esto por tu enlace real
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf3yUfTi-1vCf_ETJTz3AfRhv6XnCXX_2k1MAsa2mL0qkF3ZA/viewform?usp=dialog"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-white text-green-600 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-green-50 transition-transform transform hover:scale-105"
