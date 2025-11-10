@@ -186,7 +186,6 @@ export default function LoginPage() {
       navigate("/dashboard", { replace: true });
     } catch (error: any) {
       console.error("Login error:", error);
-      console.log(import.meta.env.VITE_API_URL);
       const detail =
         error.response?.data?.detail || "Usuario o contraseña incorrectos.";
       showToast(detail, "error");
