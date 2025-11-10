@@ -242,6 +242,24 @@ export default function EvaluationResult({
             Volver
           </Button>
         </div>
+        {/* 💬 INVITACIÓN A ENCUESTA */}
+        <div className="mt-10 text-center bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 dark:from-emerald-600 dark:to-teal-600 text-white rounded-2xl p-6 shadow-lg">
+          <h3 className="text-2xl font-bold mb-2">
+            ¡Tu opinión es muy importante para nosotros! 💚
+          </h3>
+          <p className="text-base mb-4">
+            Por favor, apóyanos completando esta breve encuesta sobre tu
+            experiencia con la aplicación.
+          </p>
+          <a
+            href="https://tuenlaceaqui.com" // 🔗 cambia esto por tu enlace real
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-white text-green-600 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-green-50 transition-transform transform hover:scale-105"
+          >
+            👉 Ir a la encuesta
+          </a>
+        </div>
       </div>
     </div>
   );
