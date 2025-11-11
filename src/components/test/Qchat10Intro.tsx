@@ -32,7 +32,7 @@ export default function Qchat10Intro() {
   }, [childId]);
 
   return (
-    <div className="h-full flex justify-center items-center px-4 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-10 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <div className="bg-white dark:bg-gray-900 max-w-2xl w-full p-8 rounded-lg shadow dark:shadow-gray-900/30 text-gray-800 dark:text-gray-100 transition-colors duration-300">
         <h1 className="text-2xl font-bold mb-6 text-green-700 dark:text-green-400 text-center">
           Evaluación Q-CHAT-10: Introducción
