@@ -16,7 +16,9 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className="h-screen flex bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+    // CAMBIO AQUÍ: Reemplaza h-screen por h-[100dvh]
+    // h-[100dvh] asegura que el contenedor se ajuste al espacio REAL visible en móviles
+    <div className="h-[100dvh] flex bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-100 transition-colors duration-300">
       {/* Sidebar solo en escritorio */}
       <aside className="hidden md:flex md:w-64 bg-white dark:bg-gray-900 shadow-lg flex-shrink-0">
         <Sidebar />
@@ -29,7 +31,8 @@ export default function Layout() {
         </main>
 
         {/* Bottom nav solo en móvil */}
-        <nav className="md:hidden bg-white border-t shadow">
+        {/* Aseguramos que no se comprima con shrink-0 */}
+        <nav className="md:hidden bg-white border-t shadow shrink-0 safe-area-bottom">
           <BottomNav currentPath={location.pathname} />
         </nav>
       </div>
