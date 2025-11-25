@@ -31,13 +31,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
-  // ✅ Actualiza el estado, el localStorage y el backend al instante
-  /* const setTheme = async (t: Theme) => {
-    setThemeState(t);
-    localStorage.setItem("theme", t);
-    await updateThemeBackend(t);
-  }; */
-
   const setTheme = async (t: Theme): Promise<boolean> => {
     setThemeState(t);
     localStorage.setItem("theme", t);
@@ -57,7 +50,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
       return true; // ✅ Éxito
     } catch (error) {
-      //console.error("Error al sincronizar el tema:", error);
       return false; // ❌ Error
     }
   };

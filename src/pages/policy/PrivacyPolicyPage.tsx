@@ -1,5 +1,4 @@
 // src\pages\policy\PrivacyPolicyPage.tsx
-// src/pages/PrivacyPolicyPage.tsx
 import { FileText } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
@@ -50,13 +49,6 @@ export default function PrivacyPolicyPage() {
             será comunicado a través de la aplicación.
           </li>
         </ul>
-
-        {/* 
-        <p className="text-sm text-gray-700 dark:text-gray-400">
-          Para consultas o solicitudes relacionadas con sus datos personales,
-          puede escribir a: <strong>micorreo@example.com</strong>
-        </p> 
-        */}
       </div>
     </div>
   );

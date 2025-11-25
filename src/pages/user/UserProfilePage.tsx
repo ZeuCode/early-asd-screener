@@ -46,13 +46,6 @@ export default function UserProfilePage() {
     }
   };
 
-  /*   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newTheme = e.target.value as "light" | "dark";
-    if (newTheme === theme) return;
-    setTheme(newTheme); // actualiza localStorage + backend instantáneamente
-    showToast("Tema cambiado", "info");
-  }; */
-
   const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newTheme = e.target.value as "light" | "dark";
     if (newTheme === theme) return;

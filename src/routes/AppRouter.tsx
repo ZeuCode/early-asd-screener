@@ -41,7 +41,6 @@ export default function AppRouter() {
       {/* Resto de rutas privadas (ya protegidas) */}
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
-          {/* <Route path="/faq" element={<FaqPage />} /> */}
           <Route path="/help" element={<HelpPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
@@ -49,7 +48,6 @@ export default function AppRouter() {
           <Route path="/children/:id" element={<ChildDetailPage />} />
           <Route path="/children/add" element={<AddChildPage />} />
           <Route path="/profile" element={<UserProfilePage />} />
-          {/* <Route path="/guide" element={<GuidePage />} /> */}
           <Route
             path="/evaluation/qchat10/:childId"
             element={<Qchat10Intro />}
