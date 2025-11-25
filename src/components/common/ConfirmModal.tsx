@@ -1,5 +1,4 @@
 // src\components\common\ConfirmModal.tsx
-// src/components/common/ConfirmModal.tsx
 import { Button } from "../ui/Button";
 
 interface ConfirmModalProps {
