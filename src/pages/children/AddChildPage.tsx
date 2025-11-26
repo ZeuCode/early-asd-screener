@@ -54,10 +54,16 @@ export default function AddChildPage() {
         <form onSubmit={handleAdd} className="flex flex-col gap-5">
           {/* Nombre */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
+            {/* 1. SOLUCIÓN: Agregamos htmlFor */}
+            <label
+              htmlFor="full_name"
+              className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium"
+            >
               Nombre completo
             </label>
+            {/* 1. SOLUCIÓN: Agregamos id coincidente */}
             <input
+              id="full_name"
               type="text"
               placeholder="Ej: Mateo Pérez"
               className="border border-gray-300 dark:border-gray-700 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-100"
@@ -69,10 +75,14 @@ export default function AddChildPage() {
 
           {/* Fecha de nacimiento */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
+            <label
+              htmlFor="birth_date"
+              className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium"
+            >
               Fecha de nacimiento
             </label>
             <input
+              id="birth_date"
               type="date"
               max={today}
               autoComplete="off"
@@ -89,10 +99,14 @@ export default function AddChildPage() {
 
           {/* Género */}
           <div className="flex flex-col">
-            <label className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium">
+            <label
+              htmlFor="gender"
+              className="text-sm text-gray-700 dark:text-gray-300 mb-1 font-medium"
+            >
               Género
             </label>
             <select
+              id="gender"
               className="border border-gray-300 dark:border-gray-700 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-100"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
@@ -108,17 +122,21 @@ export default function AddChildPage() {
               ¿Tiene familiares con diagnóstico de autismo?
             </p>
             <div className="flex justify-center gap-6">
-              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 cursor-pointer">
                 <input
                   type="radio"
                   name="asdFamily"
                   value="yes"
                   checked={hasAutisticFamilyMembers === "yes"}
                   onChange={() => setHasAutisticFamilyMembers("yes")}
+                  // Los radios no necesitan id si están DENTRO del label,
+                  // pero el texto suelto causa el error de espaciado.
                 />
-                Sí
+                {/* 2. SOLUCIÓN: Envolvemos el texto en un span */}
+                <span>Sí</span>
               </label>
-              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+
+              <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 cursor-pointer">
                 <input
                   type="radio"
                   name="asdFamily"
@@ -126,7 +144,8 @@ export default function AddChildPage() {
                   checked={hasAutisticFamilyMembers === "no"}
                   onChange={() => setHasAutisticFamilyMembers("no")}
                 />
-                No
+                {/* 2. SOLUCIÓN: Envolvemos el texto en un span */}
+                <span>No</span>
               </label>
             </div>
           </div>

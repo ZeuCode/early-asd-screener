@@ -98,10 +98,16 @@ export default function ChildDetailPage() {
       {/* Formulario de edición */}
       <div className="space-y-4">
         <div>
-          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+          {/* 1. SOLUCIÓN: Agregamos htmlFor */}
+          <label
+            htmlFor="full_name"
+            className="block text-sm text-gray-700 dark:text-gray-300 mb-1"
+          >
             Nombre completo
           </label>
+          {/* 1. SOLUCIÓN: Agregamos id */}
           <input
+            id="full_name"
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
@@ -110,10 +116,16 @@ export default function ChildDetailPage() {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+          {/* 2. SOLUCIÓN: Agregamos htmlFor */}
+          <label
+            htmlFor="age"
+            className="block text-sm text-gray-700 dark:text-gray-300 mb-1"
+          >
             Edad
           </label>
+          {/* 2. SOLUCIÓN: Agregamos id */}
           <input
+            id="age"
             type="text"
             value={`${child.age_in_months} meses`}
             disabled
@@ -122,10 +134,16 @@ export default function ChildDetailPage() {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+          {/* 3. SOLUCIÓN: Agregamos htmlFor */}
+          <label
+            htmlFor="birth_date"
+            className="block text-sm text-gray-700 dark:text-gray-300 mb-1"
+          >
             Fecha de nacimiento
           </label>
+          {/* 3. SOLUCIÓN: Agregamos id */}
           <input
+            id="birth_date"
             type="text"
             value={formatDate(child.birth_date)}
             disabled
@@ -134,10 +152,16 @@ export default function ChildDetailPage() {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+          {/* 4. SOLUCIÓN: Agregamos htmlFor */}
+          <label
+            htmlFor="gender"
+            className="block text-sm text-gray-700 dark:text-gray-300 mb-1"
+          >
             Género
           </label>
+          {/* 4. SOLUCIÓN: Agregamos id */}
           <input
+            id="gender"
             type="text"
             value={child.gender.name}
             disabled
@@ -146,10 +170,16 @@ export default function ChildDetailPage() {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
+          {/* 5. SOLUCIÓN: Agregamos htmlFor */}
+          <label
+            htmlFor="family_asd"
+            className="block text-sm text-gray-700 dark:text-gray-300 mb-1"
+          >
             Antecedentes de TEA en la familia
           </label>
+          {/* 5. SOLUCIÓN: Agregamos id */}
           <input
+            id="family_asd"
             type="text"
             value={child.family_asd ? "Sí" : "No"}
             disabled

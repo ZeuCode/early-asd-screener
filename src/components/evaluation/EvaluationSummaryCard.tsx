@@ -1,15 +1,16 @@
 // src\components\evaluation\EvaluationSummaryCard.tsx
 import type { Evaluation } from "@/types/evaluation";
 import { getRiskLevel, getRiskStyle } from "@/utils/riskLevel";
-import { useNavigate } from "react-router";
+import { Link } from "react-router"; // 1. Cambiamos useNavigate por Link
 import { Calendar, ShieldAlert, Activity } from "lucide-react";
 
 type Props = {
   evaluation: Evaluation;
 };
 
-export default function EvaluationSummaryCard({ evaluation }: Props) {
-  const navigate = useNavigate();
+export default function EvaluationSummaryCard({ evaluation }: Readonly<Props>) {
+  // 2. Eliminamos el hook useNavigate, ya no es necesario
+
   const riskLevel = getRiskLevel(evaluation.ml_probability ?? 0);
   const riskStyle = getRiskStyle(riskLevel);
   const predictedProbability =
@@ -28,9 +29,11 @@ export default function EvaluationSummaryCard({ evaluation }: Props) {
   );
 
   return (
-    <div
-      onClick={() => navigate(`/evaluations/${evaluation.id}`)}
-      className={`cursor-pointer rounded-xl border p-4 shadow-sm hover:shadow-md hover:brightness-110 transition-all duration-300 ${riskStyle.bg} ${riskStyle.border}`}
+    // 3. Cambiamos 'div' por 'Link' y 'onClick' por 'to'
+    // Añadimos 'block' para asegurar que se comporte como una caja
+    <Link
+      to={`/evaluations/${evaluation.id}`}
+      className={`block cursor-pointer rounded-xl border p-4 shadow-sm hover:shadow-md hover:brightness-110 transition-all duration-300 ${riskStyle.bg} ${riskStyle.border}`}
     >
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div className="flex items-center gap-2">
@@ -65,6 +68,6 @@ export default function EvaluationSummaryCard({ evaluation }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

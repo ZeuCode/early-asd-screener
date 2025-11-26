@@ -64,7 +64,7 @@ export default function UserProfilePage() {
       showToast("Cuenta eliminada exitosamente", "success");
       localStorage.clear();
       setTimeout(() => {
-        window.location.href = "/";
+        globalThis.location.href = "/";
       }, 1500);
     } catch {
       showToast("Error al eliminar cuenta", "error");
@@ -83,8 +83,13 @@ export default function UserProfilePage() {
       <div className="space-y-4">
         {/* Nombre */}
         <div>
-          <label className="block text-sm mb-1">Nombre completo</label>
+          {/* 1. SOLUCIÓN: htmlFor agregado */}
+          <label htmlFor="full_name" className="block text-sm mb-1">
+            Nombre completo
+          </label>
+          {/* 1. SOLUCIÓN: id agregado */}
           <input
+            id="full_name"
             type="text"
             value={editedName}
             onChange={(e) => setEditedName(e.target.value)}
@@ -94,8 +99,13 @@ export default function UserProfilePage() {
 
         {/* Email */}
         <div>
-          <label className="block text-sm mb-1">Correo electrónico</label>
+          {/* 2. SOLUCIÓN: htmlFor agregado */}
+          <label htmlFor="email" className="block text-sm mb-1">
+            Correo electrónico
+          </label>
+          {/* 2. SOLUCIÓN: id agregado */}
           <input
+            id="email"
             type="email"
             value={profile.email}
             disabled
@@ -105,8 +115,13 @@ export default function UserProfilePage() {
 
         {/* Fechas */}
         <div>
-          <label className="block text-sm mb-1">Fecha de registro</label>
+          {/* 3. SOLUCIÓN: htmlFor agregado */}
+          <label htmlFor="created_at" className="block text-sm mb-1">
+            Fecha de registro
+          </label>
+          {/* 3. SOLUCIÓN: id agregado */}
           <input
+            id="created_at"
             type="text"
             value={formatDate(profile.created_at)}
             disabled
@@ -115,8 +130,13 @@ export default function UserProfilePage() {
         </div>
 
         <div>
-          <label className="block text-sm mb-1">Consentimiento</label>
+          {/* 4. SOLUCIÓN: htmlFor agregado */}
+          <label htmlFor="consent_given_at" className="block text-sm mb-1">
+            Consentimiento
+          </label>
+          {/* 4. SOLUCIÓN: id agregado */}
           <input
+            id="consent_given_at"
             type="text"
             value={formatDate(profile.consent_given_at)}
             disabled
@@ -125,8 +145,13 @@ export default function UserProfilePage() {
         </div>
 
         <div>
-          <label className="block text-sm mb-1">Última actualización</label>
+          {/* 5. SOLUCIÓN: htmlFor agregado */}
+          <label htmlFor="updated_at" className="block text-sm mb-1">
+            Última actualización
+          </label>
+          {/* 5. SOLUCIÓN: id agregado */}
           <input
+            id="updated_at"
             type="text"
             value={formatDate(profile.updated_at)}
             disabled
@@ -136,7 +161,11 @@ export default function UserProfilePage() {
 
         {/* Preferencia de tema */}
         <div>
-          <label className="block text-sm mb-1 items-center gap-2">
+          {/* 6. SOLUCIÓN: htmlFor agregado y cambié 'block' por 'flex' para alinear el icono */}
+          <label
+            htmlFor="theme_select"
+            className="flex items-center gap-2 text-sm mb-1"
+          >
             Preferencia de tema
             {theme === "dark" ? (
               <Moon className="w-4 h-4" />
@@ -144,7 +173,9 @@ export default function UserProfilePage() {
               <Sun className="w-4 h-4" />
             )}
           </label>
+          {/* 6. SOLUCIÓN: id agregado */}
           <select
+            id="theme_select"
             value={theme}
             onChange={handleThemeChange}
             className="w-full border p-3 rounded-lg dark:bg-gray-800 dark:border-gray-700"
@@ -155,7 +186,6 @@ export default function UserProfilePage() {
         </div>
 
         {/* Guardar cambios */}
-
         <Button
           onClick={handleSave}
           disabled={

@@ -1,6 +1,6 @@
 // src/pages/auth/RegisterPage.tsx
 
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router"; // 1. Importamos Link
 import { useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
@@ -95,7 +95,7 @@ export default function RegisterPage() {
             onChange={handleChange}
           />
 
-          {/* Password y Confirm Password con ojito unificado */}
+          {/* Password */}
           <div className="relative">
             <input
               type={showPasswords ? "text" : "password"}
@@ -106,18 +106,25 @@ export default function RegisterPage() {
               value={form.password}
               onChange={handleChange}
             />
-            <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+            {/* 2. SOLUCIÓN: Usamos <button type="button"> en lugar de <span> */}
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
               onClick={() => setShowPasswords((prev) => !prev)}
+              aria-label={
+                showPasswords ? "Ocultar contraseña" : "Mostrar contraseña"
+              }
             >
               {showPasswords ? <EyeOff /> : <Eye />}
-            </span>
+            </button>
           </div>
+
           <p className="text-xs text-gray-500 -mt-3 mb-1 ml-1">
             La contraseña debe tener al menos 8 caracteres, una mayúscula y un
             número.
           </p>
 
+          {/* Confirm Password */}
           <div className="relative">
             <input
               type={showPasswords ? "text" : "password"}
@@ -128,12 +135,17 @@ export default function RegisterPage() {
               value={form.confirmPassword}
               onChange={handleChange}
             />
-            <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+            {/* 2. SOLUCIÓN REPETIDA: Usamos <button type="button"> */}
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
               onClick={() => setShowPasswords((prev) => !prev)}
+              aria-label={
+                showPasswords ? "Ocultar contraseña" : "Mostrar contraseña"
+              }
             >
               {showPasswords ? <EyeOff /> : <Eye />}
-            </span>
+            </button>
           </div>
 
           <label className="flex items-start gap-2 text-sm text-gray-600">
@@ -165,12 +177,10 @@ export default function RegisterPage() {
 
         <p className="text-sm text-center mt-4">
           ¿Ya tienes cuenta?{" "}
-          <span
-            className="text-green-600 hover:underline cursor-pointer"
-            onClick={() => navigate("/login")}
-          >
+          {/* 3. SOLUCIÓN: Usamos <Link> en lugar de <span> */}
+          <Link to="/login" className="text-green-600 hover:underline">
             Inicia sesión
-          </span>
+          </Link>
         </p>
       </div>
     </div>

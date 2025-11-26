@@ -1,7 +1,7 @@
 // src/pages/LoginPage.tsx
 import { useState, useEffect } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router"; // 1. Importamos Link
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import { Button } from "@/components/ui/Button";
@@ -101,6 +101,10 @@ export default function LoginPage() {
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
+              // Agregamos un aria-label aquí para evitar futuras quejas de accesibilidad en el botón del ojo
+              aria-label={
+                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+              }
             >
               {showPassword ? (
                 <EyeOff className="w-5 h-5" />
@@ -110,26 +114,26 @@ export default function LoginPage() {
             </button>
           </div>
 
+          {/* 2. CAMBIO: Span por Link para "Olvidaste tu contraseña" */}
           <div className="text-right">
-            <span
-              className="text-sm text-blue-600 hover:underline cursor-pointer"
-              onClick={() => navigate("/forgot-password")}
+            <Link
+              to="/forgot-password"
+              className="text-sm text-blue-600 hover:underline"
             >
               ¿Olvidaste tu contraseña?
-            </span>
+            </Link>
           </div>
 
           <Button type="submit" variant="primary" size="md">
             Iniciar sesión
           </Button>
+
           <p className="text-sm text-center">
             ¿No tienes cuenta?{" "}
-            <span
-              className="text-green-600 hover:underline cursor-pointer"
-              onClick={() => navigate("/register")}
-            >
+            {/* 3. CAMBIO: Span por Link para "Regístrate aquí" */}
+            <Link to="/register" className="text-green-600 hover:underline">
               Regístrate aquí
-            </span>
+            </Link>
           </p>
         </form>
       </div>
