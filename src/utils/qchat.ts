@@ -10,10 +10,10 @@ export function updateAnswerList(
   const updated = [...answers];
   const index = updated.findIndex((a) => a.question_id === questionId);
 
-  if (index !== -1) {
-    updated[index] = { question_id: questionId, selected_value: value };
-  } else {
+  if (index === -1) {
     updated.push({ question_id: questionId, selected_value: value });
+  } else {
+    updated[index] = { question_id: questionId, selected_value: value };
   }
 
   return updated;

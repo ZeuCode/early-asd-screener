@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import { Button } from "@/components/ui/Button";
+import { getApiErrorMessage } from "@/utils/apiError";
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -56,16 +57,10 @@ export default function ResetPasswordPage() {
       showToast("Contraseña restablecida exitosamente.", "success");
       navigate("/login");
     } catch (error: any) {
-      let message = "Error al registrarse. Inténtalo nuevamente.";
-
-      if (error.response?.data?.detail) {
-        const detail = error.response.data.detail;
-        if (typeof detail === "string") {
-          message = detail;
-        } else if (Array.isArray(detail) && detail[0]?.msg) {
-          message = detail[0].msg.replace(/^Value error, /, "");
-        }
-      }
+      const message = getApiErrorMessage(
+        error,
+        "Error al restablecer la contraseña. Inténtalo nuevamente."
+      );
       showToast(message, "error");
     }
   };

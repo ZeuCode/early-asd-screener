@@ -8,6 +8,7 @@ import type { FormEvent, ChangeEvent } from "react";
 import ConsentModal from "@/components/consent/ConsentModal";
 import { Button } from "@/components/ui/Button";
 import { Eye, EyeOff } from "lucide-react";
+import { getApiErrorMessage } from "@/utils/apiError";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -55,16 +56,10 @@ export default function RegisterPage() {
       showToast("Cuenta creada exitosamente. Inicia sesión ahora.", "success");
       navigate("/login");
     } catch (error: any) {
-      let message = "Error al registrarse. Inténtalo nuevamente.";
-
-      if (error.response?.data?.detail) {
-        const detail = error.response.data.detail;
-        if (typeof detail === "string") {
-          message = detail;
-        } else if (Array.isArray(detail) && detail[0]?.msg) {
-          message = detail[0].msg.replace(/^Value error, /, "");
-        }
-      }
+      const message = getApiErrorMessage(
+        error,
+        "Error al registrarse. Inténtalo nuevamente."
+      );
       showToast(message, "error");
     }
   };
