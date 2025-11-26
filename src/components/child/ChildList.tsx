@@ -44,9 +44,6 @@ export default function ChildList() {
         </p>
       ) : (
         <div className="flex flex-col gap-4">
-          {/*  {children.map((child) => (
-            <ChildCard key={child.id} child={child} />
-          ))} */}
           {children.map((child, index) => (
             <ChildCard key={child.id} child={child} displayId={index + 1} />
           ))}

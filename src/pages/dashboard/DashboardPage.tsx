@@ -1,13 +1,14 @@
-// src\pages\DashboardPage.tsx
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useToast } from "@/context/ToastContext";
 import type { DashboardSummary } from "@/types/dashboard";
 import DashboardCard from "@/components/dashboard/DashboardCard";
+
 export default function DashboardPage() {
   const [userName, setUserName] = useState("");
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const { showToast } = useToast();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -70,11 +71,12 @@ export default function DashboardPage() {
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Probabilidad:{" "}
-                {summary.latest_evaluation.ml_probability !== null
-                  ? `${(summary.latest_evaluation.ml_probability * 100).toFixed(
+                {/* SOLUCIÓN: Invertimos la condición para usar === null (evita la negación) */}
+                {summary.latest_evaluation.ml_probability === null
+                  ? "—"
+                  : `${(summary.latest_evaluation.ml_probability * 100).toFixed(
                       1
-                    )}%`
-                  : "—"}
+                    )}%`}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Fecha:{" "}

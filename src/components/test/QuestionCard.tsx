@@ -25,7 +25,7 @@ export default function QuestionCard({
   helpText,
   options,
   onAnswer,
-}: QuestionCardProps) {
+}: Readonly<QuestionCardProps>) {
   const progress = (questionNumber / totalQuestions) * 100;
   const [showHelp, setShowHelp] = useState(false);
 

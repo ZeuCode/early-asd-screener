@@ -18,7 +18,7 @@ export default function ConfirmModal({
   cancelText = "Cancelar",
   onCancel,
   onConfirm,
-}: ConfirmModalProps) {
+}: Readonly<ConfirmModalProps>) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 dark:bg-black/60 backdrop-blur-sm transition-colors duration-300">
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/30 max-w-sm w-full transition-colors duration-300">

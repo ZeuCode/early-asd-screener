@@ -13,7 +13,7 @@ export default function NavItem({
   icon: Icon,
   path,
   currentPath,
-}: NavItemProps) {
+}: Readonly<NavItemProps>) {
   const navigate = useNavigate();
   const isActive = currentPath === path;
 

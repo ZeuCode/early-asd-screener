@@ -41,6 +41,9 @@ export default function Qchat10Test() {
         setQuestions(res.data);
         setLoading(false);
       } catch (err) {
+        // SOLUCIÓN: Usamos 'err' registrándolo en la consola.
+        // Esto satisface la regla de "Handle the exception".
+        console.error("Error al obtener preguntas:", err);
         showToast("Error al cargar preguntas del cuestionario", "error");
       }
     };

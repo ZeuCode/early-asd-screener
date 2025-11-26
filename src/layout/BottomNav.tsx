@@ -7,7 +7,7 @@ type Props = {
   currentPath: string;
 };
 
-export default function BottomNav({ currentPath }: Props) {
+export default function BottomNav({ currentPath }: Readonly<Props>) {
   const navigate = useNavigate();
 
   const handleLogout = () => {

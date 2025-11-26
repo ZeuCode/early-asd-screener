@@ -16,7 +16,7 @@ export default function ReviewAnswers({
   answers,
   onEdit,
   onSubmit,
-}: ReviewAnswersProps) {
+}: Readonly<ReviewAnswersProps>) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold text-center text-green-700 dark:text-green-400 mb-6">

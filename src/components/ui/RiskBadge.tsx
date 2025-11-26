@@ -5,7 +5,7 @@ type RiskBadgeProps = {
   level: RiskLevel;
 };
 
-export default function RiskBadge({ level }: RiskBadgeProps) {
+export default function RiskBadge({ level }: Readonly<RiskBadgeProps>) {
   const style = getRiskStyle(level);
 
   return (

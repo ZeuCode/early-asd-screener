@@ -1,4 +1,3 @@
-// src\components\test\EvaluationResult.tsx
 import {
   getRiskLevel,
   getRiskMessage,
@@ -25,7 +24,6 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  //LabelList,
   Cell,
 } from "recharts";
 
@@ -46,7 +44,7 @@ export default function EvaluationResult({
   childName,
   questions,
   answers,
-}: Props) {
+}: Readonly<Props>) {
   const navigate = useNavigate();
   const [explanation, setExplanation] = useState<FeatureExplanation[]>([]);
 
@@ -57,7 +55,7 @@ export default function EvaluationResult({
         childName={childName}
         questions={questions}
         answers={answers}
-        date={new Date().toISOString()} // ✅ Agregamos fecha actual
+        date={new Date().toISOString()}
       />
     );
 
@@ -76,7 +74,7 @@ export default function EvaluationResult({
       .from(container)
       .save()
       .then(() => {
-        document.body.removeChild(container);
+        container.remove();
       });
   };
 
@@ -108,6 +106,17 @@ export default function EvaluationResult({
       fetchExplanation();
     }
   }, [result?.id]);
+
+  // Usamos [...explanation] para crear una copia y no mutar el estado directamente
+  const chartData = [...explanation]
+    .sort((a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value))
+    .map((item) => ({
+      name: item.question_text,
+      impacto: Math.abs(item.shap_value * 100),
+      color: item.shap_value > 0 ? "#dc2626" : "#16a34a",
+      respuesta: item.value === 1 ? "Sí" : "No",
+    }));
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-10">
       <div className="w-full max-w-4xl bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 space-y-6 text-center transition-all">
@@ -144,16 +153,7 @@ export default function EvaluationResult({
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart
                   layout="vertical"
-                  data={explanation
-                    .sort(
-                      (a, b) => Math.abs(b.shap_value) - Math.abs(a.shap_value)
-                    )
-                    .map((item) => ({
-                      name: item.question_text,
-                      impacto: Math.abs(item.shap_value * 100),
-                      color: item.shap_value > 0 ? "#dc2626" : "#16a34a",
-                      respuesta: item.value === 1 ? "Sí" : "No",
-                    }))}
+                  data={chartData} // Usamos la variable preparada
                   margin={{ left: 50 }}
                 >
                   <XAxis type="number" hide />
@@ -163,7 +163,7 @@ export default function EvaluationResult({
                     width={300}
                     tick={{
                       fontSize: 12,
-                      fill: "#e6eef6", // texto claro para buena legibilidad sobre bg-slate-700
+                      fill: "#e6eef6",
                     }}
                     tickLine={false}
                   />
@@ -185,21 +185,14 @@ export default function EvaluationResult({
                       position: "right",
                       formatter: (val: any) =>
                         typeof val === "number" ? `${val.toFixed(1)}%` : "",
-                      fill: "#e6eef6", // texto claro para los labels del final de barra
+                      fill: "#e6eef6",
                       fontSize: 12,
                     }}
                   >
-                    {explanation
-                      .sort(
-                        (a, b) =>
-                          Math.abs(b.shap_value) - Math.abs(a.shap_value)
-                      )
-                      .map((item, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={item.shap_value > 0 ? "#dc2626" : "#16a34a"}
-                        />
-                      ))}
+                    {/* SOLUCIÓN: Usamos item.name como key en lugar del index */}
+                    {chartData.map((item) => (
+                      <Cell key={item.name} fill={item.color} />
+                    ))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>

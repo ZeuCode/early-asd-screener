@@ -105,7 +105,7 @@ export default function EvaluationDetailPage() {
       .from(container)
       .save()
       .then(() => {
-        document.body.removeChild(container);
+        container.remove();
       });
   };
 

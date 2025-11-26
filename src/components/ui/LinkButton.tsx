@@ -11,7 +11,7 @@ export default function LinkButton({
   className,
   size = "sm",
   ...props
-}: LinkButtonProps) {
+}: Readonly<LinkButtonProps>) {
   const sizeClasses = {
     sm: "text-sm",
     md: "text-base",

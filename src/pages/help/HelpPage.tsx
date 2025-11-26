@@ -25,7 +25,7 @@ export default function HelpPage() {
   const navigate = useNavigate();
 
   const handleSendFeedback = () => {
-    window.location.href = `mailto:earlyasdscreener@gmail.com?subject=Retroalimentación%20de%20usuario&body=${encodeURIComponent(
+    globalThis.location.href = `mailto:earlyasdscreener@gmail.com?subject=Retroalimentación%20de%20usuario&body=${encodeURIComponent(
       feedback
     )}`;
     setShowFeedback(false);
@@ -151,7 +151,8 @@ export default function HelpPage() {
 
           <div className="space-y-6">
             {filteredFaqs.length > 0 ? (
-              filteredFaqs.map((faq, i) => <FaqItem key={i} {...faq} />)
+              // SOLUCIÓN: Usamos faq.question como key única en lugar del índice
+              filteredFaqs.map((faq) => <FaqItem key={faq.question} {...faq} />)
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 No se encontraron resultados para “{search}”.
@@ -230,11 +231,11 @@ function FaqItem({
   icon,
   question,
   answer,
-}: {
+}: Readonly<{
   icon: React.ReactNode;
   question: string;
   answer: string;
-}) {
+}>) {
   return (
     <div className="flex items-start gap-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm">
       <div className="shrink-0 mt-1">{icon}</div>
