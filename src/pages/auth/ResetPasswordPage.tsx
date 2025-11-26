@@ -17,9 +17,6 @@ export default function ResetPasswordPage() {
     confirmPassword: "",
   });
 
-  /* useEffect(() => {
-    document.title = "Restablecer contraseña - Early ASD Screener";
-  }, []); */
   const toastShownRef = useRef(false); //agregado para evitar doble toast del token invalido
   useEffect(() => {
     document.title = "Restablecer contraseña - Early ASD Screener";
